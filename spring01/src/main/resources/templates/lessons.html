@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lessons</title>
+    <link rel="stylesheet" href="css/list-style.css">
+</head>
+<body>
+    <table class="bordered-table">
+        <caption>List of all lessons:</caption>
+        <thead>
+            <td>Lesson's ID</td>
+            <td>Student</td>
+            <td>Teacher</td>
+            <td>Subject</td>
+            <td>Date of lesson</td>
+            <td>Price for lesson</td>
+        </thead>
+        <tr th:each="lesson : ${lessons}">
+            <td th:text="${lesson.getId()}"></td>
+            <td th:text="${lesson.getStudent()}"></td>
+            <td th:text="${lesson.getTeacher()}"></td>
+            <td th:text="${lesson.getSubject()}"></td>
+            <td th:text="${lesson.getDate()}"></td>
+            <td th:text="${lesson.getPrice()}"></td>
+        </tr>
+    </table>
+</body>
+</html>

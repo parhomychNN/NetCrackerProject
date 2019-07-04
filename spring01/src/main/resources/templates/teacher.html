@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher's info</title>
+    <link rel="stylesheet" href="../css/list-style.css">
+</head>
+<body>
+<table class="bordered-table">
+    <caption>Teacher's info:</caption>
+    <thead>
+    <td>Teacher's ID</td>
+    <td>First name</td>
+    <td>Last name</td>
+    <td>Scient degree</td>
+    </thead>
+    <tr>
+        <td th:text="${teacher.getTeacherId()}"></td>
+        <td th:text="${teacher.getFirstName()}"></td>
+        <td th:text="${teacher.getLastName()}"></td>
+        <td th:text="${teacher.getAcademicDegree()}"></td>
+    </tr>
+</table>
+</body>
+</html>
