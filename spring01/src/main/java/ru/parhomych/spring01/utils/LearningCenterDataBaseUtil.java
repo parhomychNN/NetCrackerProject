@@ -105,7 +105,15 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
                 break;
             case "Admin":
                 System.out.println("Adds admin");
+
+                sql = "select ent_type_id from entity_type where entity like 'Admin'";
+                entIdMap = getJdbcTemplate().queryForMap(sql);
+                entId = Integer.valueOf(entIdMap.get("ent_type_id").toString());
+
+                sqlToAddObject = "insert into object (obj_id, ent_type_id) values (?, ?)";
+                getJdbcTemplate().update(sqlToAddObject, objId, entId);
                 break;
+
             case "Teacher":
                 System.out.println("Adds teacher");
 

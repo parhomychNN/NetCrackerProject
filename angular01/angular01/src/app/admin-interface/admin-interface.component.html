@@ -1,3 +1,48 @@
-<p>
-  admin-interface works!
-</p>
+<header class="m-3">
+  <h1 class="text-center">Личный кабинет администратора</h1>
+</header>
+
+<div class="card-deck ml-3 mr-3"><!--row m-5-->
+  <div class="col-md-9 card p-0">
+    <div class="card-header bg-primary text-white font-weight-bold">
+      Ваши лекции
+    </div>
+    <div class="card-body">
+
+    </div>
+  </div>
+
+  <div class="col-md-3 card p-0">
+    <div class="card-header bg-success font-weight-bold text-white">
+      Информация о администраторе
+    </div>
+
+    <div class="card-body">
+      <dl class="dl-horizontal">
+        <dt>ID:</dt>
+        <dd>Айдишник админа</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Имя:</dt>
+        <dd>Имя админа</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Фамилия:</dt>
+        <dd>Фамилия админа</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Должность</dt>
+        <dd>Должность админа</dd>
+      </dl>
+    </div>
+
+    <div class="button-bar m-3">
+      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal"
+              (click)="showEditDialog($event)">Редактировать профиль
+      </button>
+    </div>
+
+
+  </div>
+
+</div>

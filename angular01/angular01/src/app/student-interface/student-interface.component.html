@@ -22,8 +22,8 @@
           <td>{{lesson.id}}</td>
           <td>{{lesson.subject}}</td>
           <td>{{lesson.teacher.lastName}} {{lesson.teacher.firstName}}</td>
-          <td>{{lesson.date}}</td>
-          <td>{{lesson.price}}</td>
+          <td>{{lesson.date | date:'fullDate':'ru'}}</td>
+          <td>{{lesson.price | currency: 'RUB'}}</td>
         </tr>
         </tbody>
 
@@ -52,11 +52,11 @@
       </dl>
       <dl class="dl-horizontal">
         <dt>Дата рождения:</dt>
-        <dd>{{studentJSON.date}}</dd>
+        <dd>{{studentJSON.date | date}}</dd>
       </dl>
     </div>
     <div class="button-bar m-3">
-      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="onClick($event)">Редактировать профиль</button>
+      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="showEditDialog($event)">Редактировать профиль</button>
     </div>
 
 
@@ -73,7 +73,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Редактирование профиля</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hide()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideEditDialog()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -94,8 +94,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hide()">Закрыть</button>
-        <button type="button" class="btn btn-primary" (click)="editButtonPressed(lastNameText, firstNameText, birthDate)">Сохранить</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideEditDialog()">Закрыть</button>
+        <button type="button" class="btn btn-primary" (click)="editOkButtonPressed(lastNameText, firstNameText, birthDate)">Сохранить</button>
       </div>
     </div>
   </div>

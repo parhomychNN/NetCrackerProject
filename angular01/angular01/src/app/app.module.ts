@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,15 +9,22 @@ import {Routes, RouterModule} from "@angular/router";
 import { TeacherInterfaceComponent } from './teacher-interface/teacher-interface.component';
 import { WelcomeInterfaceComponent } from './welcome-interface/welcome-interface.component';
 import { AdminInterfaceComponent } from './admin-interface/admin-interface.component';
+import {FormsModule} from "@angular/forms";
+
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+import {StudentService} from "./services/student.service";
+
+registerLocaleData(localeRu, 'ru');
 
 // TODo скинуть код (четверг) и git ignore на большие компоненты
 // paths
 const appRoutes: Routes = [
   {path: '', component: WelcomeInterfaceComponent},
   // TODO решение об id прнимает кнопка Sign in, не нужно протаскивать в адресную строку
-  {path: 'student/:id', component: StudentInterfaceComponent},
-  {path: 'teacher/:id', component: TeacherInterfaceComponent},
-  {path: 'admin/:id', component: AdminInterfaceComponent}
+  {path: 'student', component: StudentInterfaceComponent},
+  {path: 'teacher', component: TeacherInterfaceComponent},
+  {path: 'admin', component: AdminInterfaceComponent}
 ];
 
 @NgModule({
@@ -30,11 +37,15 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'ru' },
+    StudentService
+  ],
   bootstrap: [AppComponent],
   exports: [RouterModule]
 })

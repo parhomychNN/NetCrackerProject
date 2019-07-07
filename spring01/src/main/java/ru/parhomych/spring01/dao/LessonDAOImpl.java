@@ -39,11 +39,11 @@ public class LessonDAOImpl extends JdbcDaoSupport implements LessonDAO {
             "    )\n" +
             "and obj_id = ?;\n";
 
-    String sqlGetAllLessonsIds = "select o.obj_id id\n" +
+    final String sqlGetAllLessonsIds = "select o.obj_id id\n" +
             "from object o, entity_type et\n" +
             "where o.ent_type_id = et.ent_type_id and et.entity like 'Lesson'";
 
-    String sqlGetAllLessonsIdsByStudentId = "select lesson_id from lesson where student_id = ?";
+    final String sqlGetAllLessonsIdsByStudentId = "select lesson_id from lesson where student_id = ?";
 
 
     @PostConstruct

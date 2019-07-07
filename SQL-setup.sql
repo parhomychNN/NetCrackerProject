@@ -38,6 +38,7 @@ insert into attribute (attr_name) values ('price');
 insert into attribute (attr_name) values ('lesson_date');
 insert into attribute (attr_name) values ('academic_degree');
 insert into attribute (attr_name) values ('subject');
+insert into attribute (attr_name) values ('position');
 
 select * from attribute;
 
@@ -67,6 +68,10 @@ insert into entity_attribute (ent_type_id, attr_id) values (3,1);
 insert into entity_attribute (ent_type_id, attr_id) values (3,5);
 insert into entity_attribute (ent_type_id, attr_id) values (3,6);
 insert into entity_attribute (ent_type_id, attr_id) values (3,8);
+insert into entity_attribute (ent_type_id, attr_id) values (4,1);
+insert into entity_attribute (ent_type_id, attr_id) values (4,2);
+insert into entity_attribute (ent_type_id, attr_id) values (4,3);
+insert into entity_attribute (ent_type_id, attr_id) values (4,9);
 
 select * from entity_attribute;
 
@@ -88,6 +93,8 @@ insert into object (ent_type_id) values (2);
 insert into object (ent_type_id) values (2);
 insert into object (ent_type_id) values (3);
 insert into object (ent_type_id) values (3);
+insert into object (ent_type_id) values (4);
+insert into object (ent_type_id) values (4);
 
 select * from object;
 
@@ -137,6 +144,14 @@ insert into value (obj_id, entity_attribute_id, val_int) values (7, 9, 7);
 insert into value (obj_id, entity_attribute_id, val_numeric) values (7, 10, 850.0);
 insert into value (obj_id, entity_attribute_id, val_date) values (7, 11, to_date('15-05-2019', 'DD-MM-YYYY'));
 insert into value (obj_id, entity_attribute_id, val_text) values (7, 12, 'English 10 класс');
+insert into value (obj_id, entity_attribute_id, val_int) values (8, 13, 8);
+insert into value (obj_id, entity_attribute_id, val_text) values (8, 14, 'Админ');
+insert into value (obj_id, entity_attribute_id, val_text) values (8, 15, 'Админов');
+insert into value (obj_id, entity_attribute_id, val_text) values (8, 16, 'Мастер над учениками');
+insert into value (obj_id, entity_attribute_id, val_int) values (9, 13, 9);
+insert into value (obj_id, entity_attribute_id, val_text) values (9, 14, 'Админ2');
+insert into value (obj_id, entity_attribute_id, val_text) values (9, 15, 'Админов2');
+insert into value (obj_id, entity_attribute_id, val_text) values (9, 16, 'Мастер над преподами');
 
 select * from value;
 

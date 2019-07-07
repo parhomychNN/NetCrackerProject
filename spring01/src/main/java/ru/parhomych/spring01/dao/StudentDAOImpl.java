@@ -91,6 +91,7 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
         return resultStudents;
     }
 
+    @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Student addNewStudent(Student student) {
        List<Map<String, Object>> eaattrList = learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
