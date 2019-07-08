@@ -52,12 +52,10 @@ public class StudentController {
     }
 
     @PostMapping("/students/add")
-    public ResponseEntity<InfoMessage> addNewStudent(@RequestBody Student studentJSON){
+    public ResponseEntity<Student> addNewStudent(@RequestBody Student studentJSON){
 
-        Student addedStudent = studentService.addNewStudent(studentJSON);
-
-        return new ResponseEntity<> (
-                new InfoMessage("Student " + addedStudent.getStudentId() + " added"),
+        return new ResponseEntity<Student> (
+                studentService.addNewStudent(studentJSON),
                 HttpStatus.OK
         );
 

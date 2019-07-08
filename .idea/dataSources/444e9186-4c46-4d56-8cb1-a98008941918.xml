@@ -22,12 +22,12 @@
       <IntrospectionStateNumber>519</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
-      <Relations>sequence|table|33861|33863|1
-sequence|table|33935|33937|1
-sequence|table|33872|33874|1
-sequence|table|33883|33885|1
-sequence|table|33901|33903|1
-sequence|table|33914|33916|1
+      <Relations>sequence|table|33958|33960|1
+sequence|table|33998|34000|1
+sequence|table|33969|33971|1
+sequence|table|33980|33982|1
+sequence|table|34011|34013|1
+sequence|table|34032|34034|1
 </Relations>
     </database>
     <database id="5" parent="1" name="shopbd">
@@ -118,8 +118,8 @@ sequence|table|33914|33916|1
       <Comment>standard public schema</Comment>
       <StateNumber>360</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionTimestamp>2019-07-07.10:52:59.009</IntrospectionTimestamp>
-      <IntrospectionStateNumber>1816</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2019-07-09.00:44:29.783</IntrospectionTimestamp>
+      <IntrospectionStateNumber>1957</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -180,88 +180,88 @@ sequence|table|33914|33916|1
       <SchemaId>11</SchemaId>
     </extension>
     <sequence id="28" parent="20" name="attribute_attr_id_seq">
-      <ObjectId>33872</ObjectId>
+      <ObjectId>33969</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1738</StateNumber>
+      <StateNumber>1879</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
     <sequence id="29" parent="20" name="entity_attribute_entity_attribute_id_seq">
-      <ObjectId>33883</ObjectId>
+      <ObjectId>33980</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1749</StateNumber>
+      <StateNumber>1890</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
     <sequence id="30" parent="20" name="entity_type_ent_type_id_seq">
-      <ObjectId>33861</ObjectId>
+      <ObjectId>33958</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1732</StateNumber>
+      <StateNumber>1873</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
     <sequence id="31" parent="20" name="lesson_id_seq">
-      <ObjectId>33935</ObjectId>
+      <ObjectId>34032</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1816</StateNumber>
+      <StateNumber>1957</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
     <sequence id="32" parent="20" name="object_obj_id_seq">
-      <ObjectId>33901</ObjectId>
+      <ObjectId>33998</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1767</StateNumber>
+      <StateNumber>1908</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
     <sequence id="33" parent="20" name="value_val_id_seq">
-      <ObjectId>33914</ObjectId>
+      <ObjectId>34011</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <SequenceIdentity>1..2147483647</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>integer</DataType>
     </sequence>
     <table id="34" parent="20" name="attribute">
-      <ObjectId>33874</ObjectId>
+      <ObjectId>33971</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1749</StateNumber>
+      <StateNumber>1890</StateNumber>
     </table>
     <table id="35" parent="20" name="entity_attribute">
-      <ObjectId>33885</ObjectId>
+      <ObjectId>33982</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1749</StateNumber>
+      <StateNumber>1890</StateNumber>
     </table>
     <table id="36" parent="20" name="entity_type">
-      <ObjectId>33863</ObjectId>
+      <ObjectId>33960</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1749</StateNumber>
+      <StateNumber>1890</StateNumber>
     </table>
     <table id="37" parent="20" name="lesson">
-      <ObjectId>33937</ObjectId>
+      <ObjectId>34034</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1816</StateNumber>
+      <StateNumber>1957</StateNumber>
     </table>
     <table id="38" parent="20" name="object">
-      <ObjectId>33903</ObjectId>
+      <ObjectId>34000</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1767</StateNumber>
+      <StateNumber>1908</StateNumber>
     </table>
     <table id="39" parent="20" name="value">
-      <ObjectId>33916</ObjectId>
+      <ObjectId>34013</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
     </table>
     <column id="40" parent="34" name="attr_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1738</StateNumber>
+      <StateNumber>1879</StateNumber>
       <DefaultExpression>nextval(&apos;attribute_attr_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
@@ -269,18 +269,18 @@ sequence|table|33914|33916|1
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1738</StateNumber>
+      <StateNumber>1879</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <index id="42" parent="34" name="attr_id_pkey">
-      <ObjectId>33881</ObjectId>
-      <StateNumber>1738</StateNumber>
+      <ObjectId>33978</ObjectId>
+      <StateNumber>1879</StateNumber>
       <ColNames>attr_id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="43" parent="34" name="attr_id_pkey">
-      <ObjectId>33882</ObjectId>
-      <StateNumber>1738</StateNumber>
+      <ObjectId>33979</ObjectId>
+      <StateNumber>1879</StateNumber>
       <ColNames>attr_id</ColNames>
       <UnderlyingIndexName>attr_id_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
@@ -289,7 +289,7 @@ sequence|table|33914|33916|1
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1749</StateNumber>
+      <StateNumber>1890</StateNumber>
       <DefaultExpression>nextval(&apos;entity_attribute_entity_attribute_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
@@ -297,34 +297,34 @@ sequence|table|33914|33916|1
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1749</StateNumber>
+      <StateNumber>1890</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="46" parent="35" name="attr_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1749</StateNumber>
+      <StateNumber>1890</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <index id="47" parent="35" name="entity_attribute_id_pkey">
-      <ObjectId>33889</ObjectId>
-      <StateNumber>1749</StateNumber>
+      <ObjectId>33986</ObjectId>
+      <StateNumber>1890</StateNumber>
       <ColNames>entity_attribute_id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="48" parent="35" name="entity_attribute_id_pkey">
-      <ObjectId>33890</ObjectId>
-      <StateNumber>1749</StateNumber>
+      <ObjectId>33987</ObjectId>
+      <StateNumber>1890</StateNumber>
       <ColNames>entity_attribute_id</ColNames>
       <UnderlyingIndexName>entity_attribute_id_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="49" parent="35" name="ent_type_id_fkey">
-      <ObjectId>33891</ObjectId>
-      <StateNumber>1749</StateNumber>
+      <ObjectId>33988</ObjectId>
+      <StateNumber>1890</StateNumber>
       <ColNames>ent_type_id</ColNames>
-      <RefTableId>33863</RefTableId>
+      <RefTableId>33960</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>entity_type</RefTableName>
       <RefKeyName>ent_type_pkey</RefKeyName>
@@ -332,10 +332,10 @@ sequence|table|33914|33916|1
       <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="50" parent="35" name="attr_id_fkey">
-      <ObjectId>33896</ObjectId>
-      <StateNumber>1749</StateNumber>
+      <ObjectId>33993</ObjectId>
+      <StateNumber>1890</StateNumber>
       <ColNames>attr_id</ColNames>
-      <RefTableId>33874</RefTableId>
+      <RefTableId>33971</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>attribute</RefTableName>
       <RefKeyName>attr_id_pkey</RefKeyName>
@@ -346,7 +346,7 @@ sequence|table|33914|33916|1
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1732</StateNumber>
+      <StateNumber>1873</StateNumber>
       <DefaultExpression>nextval(&apos;entity_type_ent_type_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
@@ -354,18 +354,18 @@ sequence|table|33914|33916|1
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1732</StateNumber>
+      <StateNumber>1873</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <index id="53" parent="36" name="ent_type_pkey">
-      <ObjectId>33870</ObjectId>
-      <StateNumber>1732</StateNumber>
+      <ObjectId>33967</ObjectId>
+      <StateNumber>1873</StateNumber>
       <ColNames>ent_type_id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="54" parent="36" name="ent_type_pkey">
-      <ObjectId>33871</ObjectId>
-      <StateNumber>1732</StateNumber>
+      <ObjectId>33968</ObjectId>
+      <StateNumber>1873</StateNumber>
       <ColNames>ent_type_id</ColNames>
       <UnderlyingIndexName>ent_type_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
@@ -374,7 +374,7 @@ sequence|table|33914|33916|1
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1816</StateNumber>
+      <StateNumber>1957</StateNumber>
       <DefaultExpression>nextval(&apos;lesson_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
@@ -382,41 +382,41 @@ sequence|table|33914|33916|1
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1816</StateNumber>
+      <StateNumber>1957</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="57" parent="37" name="teacher_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1816</StateNumber>
+      <StateNumber>1957</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="58" parent="37" name="student_id">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1816</StateNumber>
+      <StateNumber>1957</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <index id="59" parent="37" name="id_pkey">
-      <ObjectId>33941</ObjectId>
-      <StateNumber>1816</StateNumber>
+      <ObjectId>34038</ObjectId>
+      <StateNumber>1957</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="60" parent="37" name="id_pkey">
-      <ObjectId>33942</ObjectId>
-      <StateNumber>1816</StateNumber>
+      <ObjectId>34039</ObjectId>
+      <StateNumber>1957</StateNumber>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="61" parent="37" name="lesson_id_fkey">
-      <ObjectId>33943</ObjectId>
-      <StateNumber>1816</StateNumber>
+      <ObjectId>34040</ObjectId>
+      <StateNumber>1957</StateNumber>
       <ColNames>lesson_id</ColNames>
-      <RefTableId>33903</RefTableId>
+      <RefTableId>34000</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>object</RefTableName>
       <RefKeyName>obj_id_pkey</RefKeyName>
@@ -424,10 +424,10 @@ sequence|table|33914|33916|1
       <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="62" parent="37" name="teacher_id_fkey">
-      <ObjectId>33948</ObjectId>
-      <StateNumber>1816</StateNumber>
+      <ObjectId>34045</ObjectId>
+      <StateNumber>1957</StateNumber>
       <ColNames>teacher_id</ColNames>
-      <RefTableId>33903</RefTableId>
+      <RefTableId>34000</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>object</RefTableName>
       <RefKeyName>obj_id_pkey</RefKeyName>
@@ -435,10 +435,10 @@ sequence|table|33914|33916|1
       <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="63" parent="37" name="student_id_fkey">
-      <ObjectId>33953</ObjectId>
-      <StateNumber>1816</StateNumber>
+      <ObjectId>34050</ObjectId>
+      <StateNumber>1957</StateNumber>
       <ColNames>student_id</ColNames>
-      <RefTableId>33903</RefTableId>
+      <RefTableId>34000</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>object</RefTableName>
       <RefKeyName>obj_id_pkey</RefKeyName>
@@ -449,7 +449,7 @@ sequence|table|33914|33916|1
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1767</StateNumber>
+      <StateNumber>1908</StateNumber>
       <DefaultExpression>nextval(&apos;object_obj_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
@@ -457,27 +457,27 @@ sequence|table|33914|33916|1
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1767</StateNumber>
+      <StateNumber>1908</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <index id="66" parent="38" name="obj_id_pkey">
-      <ObjectId>33907</ObjectId>
-      <StateNumber>1767</StateNumber>
+      <ObjectId>34004</ObjectId>
+      <StateNumber>1908</StateNumber>
       <ColNames>obj_id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="67" parent="38" name="obj_id_pkey">
-      <ObjectId>33908</ObjectId>
-      <StateNumber>1767</StateNumber>
+      <ObjectId>34005</ObjectId>
+      <StateNumber>1908</StateNumber>
       <ColNames>obj_id</ColNames>
       <UnderlyingIndexName>obj_id_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="68" parent="38" name="ent_type_id_fkey">
-      <ObjectId>33909</ObjectId>
-      <StateNumber>1767</StateNumber>
+      <ObjectId>34006</ObjectId>
+      <StateNumber>1908</StateNumber>
       <ColNames>ent_type_id</ColNames>
-      <RefTableId>33863</RefTableId>
+      <RefTableId>33960</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>entity_type</RefTableName>
       <RefKeyName>ent_type_pkey</RefKeyName>
@@ -488,7 +488,7 @@ sequence|table|33914|33916|1
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <DefaultExpression>nextval(&apos;value_val_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
@@ -496,68 +496,68 @@ sequence|table|33914|33916|1
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="71" parent="39" name="entity_attribute_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="72" parent="39" name="val_int">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="73" parent="39" name="val_text">
       <Position>5</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="74" parent="39" name="val_date">
       <Position>6</Position>
       <DataType>date|0s</DataType>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <TypeId>1082</TypeId>
     </column>
     <column id="75" parent="39" name="val_numeric">
       <Position>7</Position>
       <DataType>numeric(7,2 digit)|0s</DataType>
-      <StateNumber>1778</StateNumber>
+      <StateNumber>1919</StateNumber>
       <TypeId>1700</TypeId>
     </column>
     <index id="76" parent="39" name="val_id_pkey">
-      <ObjectId>33923</ObjectId>
-      <StateNumber>1778</StateNumber>
+      <ObjectId>34020</ObjectId>
+      <StateNumber>1919</StateNumber>
       <ColNames>val_id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="77" parent="39" name="val_id_pkey">
-      <ObjectId>33924</ObjectId>
-      <StateNumber>1778</StateNumber>
+      <ObjectId>34021</ObjectId>
+      <StateNumber>1919</StateNumber>
       <ColNames>val_id</ColNames>
       <UnderlyingIndexName>val_id_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="78" parent="39" name="obj_id_fkey">
-      <ObjectId>33925</ObjectId>
-      <StateNumber>1778</StateNumber>
+      <ObjectId>34022</ObjectId>
+      <StateNumber>1919</StateNumber>
       <ColNames>obj_id</ColNames>
-      <RefTableId>33903</RefTableId>
+      <RefTableId>34000</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>object</RefTableName>
       <RefKeyName>obj_id_pkey</RefKeyName>
       <RefColNames>obj_id</RefColNames>
     </foreign-key>
     <foreign-key id="79" parent="39" name="entity_attribute_id_fkey">
-      <ObjectId>33930</ObjectId>
-      <StateNumber>1778</StateNumber>
+      <ObjectId>34027</ObjectId>
+      <StateNumber>1919</StateNumber>
       <ColNames>entity_attribute_id</ColNames>
-      <RefTableId>33885</RefTableId>
+      <RefTableId>33982</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>entity_attribute</RefTableName>
       <RefKeyName>entity_attribute_id_pkey</RefKeyName>

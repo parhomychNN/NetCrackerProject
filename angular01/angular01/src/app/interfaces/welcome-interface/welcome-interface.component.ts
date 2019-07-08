@@ -2,8 +2,7 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {NgForm, FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {Router} from "@angular/router";
-import {StudentService} from "../services/student.service";
-import {Student} from "../models/Student";
+import {StudentService} from "../../services/student.service";
 
 @NgModule({
   imports: [

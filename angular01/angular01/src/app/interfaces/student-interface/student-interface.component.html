@@ -19,11 +19,11 @@
         </thead>
         <tbody>
         <tr *ngFor="let lesson of lessonsJSON">
-          <td>{{lesson.id}}</td>
-          <td>{{lesson.subject}}</td>
-          <td>{{lesson.teacher.lastName}} {{lesson.teacher.firstName}}</td>
-          <td>{{lesson.date | date:'fullDate':'ru'}}</td>
-          <td>{{lesson.price | currency: 'RUB'}}</td>
+          <td>{{lesson?.id}}</td>
+          <td>{{lesson?.subject}}</td>
+          <td>{{lesson?.teacher.lastName}} {{lesson?.teacher.firstName}}</td>
+          <td>{{lesson?.date | date:'fullDate':'ru'}}</td>
+          <td>{{lesson?.price | currency: 'RUB'}}</td>
         </tr>
         </tbody>
 
@@ -40,19 +40,19 @@
     <div class="card-body">
       <dl class="dl-horizontal">
         <dt>ID:</dt>
-        <dd>{{studentJSON.studentId}}</dd>
+        <dd>{{studentJSON?.studentId}}</dd>
       </dl>
       <dl class="dl-horizontal">
         <dt>Имя:</dt>
-        <dd>{{studentJSON.firstName}}</dd>
+        <dd>{{studentJSON?.firstName}}</dd>
       </dl>
       <dl class="dl-horizontal">
         <dt>Фамилия:</dt>
-        <dd>{{studentJSON.lastName}}</dd>
+        <dd>{{studentJSON?.lastName}}</dd>
       </dl>
       <dl class="dl-horizontal">
         <dt>Дата рождения:</dt>
-        <dd>{{studentJSON.date | date}}</dd>
+        <dd>{{studentJSON?.date | date}}</dd>
       </dl>
     </div>
     <div class="button-bar m-3">
@@ -81,15 +81,15 @@
         <form>
           <div class="form-group">
             <label for="lastNameText">Фамилия</label>
-            <input type="text" class="form-control" id="lastNameText" #lastNameText placeholder="Введите фамилию" value="{{studentJSON.lastName}}">
+            <input type="text" class="form-control" id="lastNameText" #lastNameText placeholder="Введите фамилию" value="{{studentJSON?.lastName}}">
           </div>
           <div class="form-group">
             <label for="firstNameText">Имя</label>
-            <input type="text" class="form-control" id="firstNameText" #firstNameText placeholder="Введите имя" value="{{studentJSON.firstName}}">
+            <input type="text" class="form-control" id="firstNameText" #firstNameText placeholder="Введите имя" value="{{studentJSON?.firstName}}">
           </div>
           <div class="form-group">
             <label for="birthDate">Дата рождения</label>
-            <input type="date" class="form-control" id="birthDate" #birthDate value="{{studentJSON.date}}">
+            <input type="date" class="form-control" id="birthDate" #birthDate value="{{studentJSON?.date}}">
           </div>
         </form>
       </div>

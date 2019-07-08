@@ -4,16 +4,21 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudentInterfaceComponent } from './student-interface/student-interface.component';
+import { StudentInterfaceComponent } from './interfaces/student-interface/student-interface.component';
 import {Routes, RouterModule} from "@angular/router";
-import { TeacherInterfaceComponent } from './teacher-interface/teacher-interface.component';
-import { WelcomeInterfaceComponent } from './welcome-interface/welcome-interface.component';
-import { AdminInterfaceComponent } from './admin-interface/admin-interface.component';
+import { TeacherInterfaceComponent } from './interfaces/teacher-interface/teacher-interface.component';
+import { WelcomeInterfaceComponent } from './interfaces/welcome-interface/welcome-interface.component';
+import { AdminInterfaceComponent } from './interfaces/admin-interface/admin-interface.component';
 import {FormsModule} from "@angular/forms";
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import {StudentService} from "./services/student.service";
+import { StudFindByIdComponent } from './crudOperationsInterfaces/students/stud-find-by-id/stud-find-by-id.component';
+import { StudFindAllComponent } from './crudOperationsInterfaces/students/stud-find-all/stud-find-all.component';
+import { StudDeleteOneComponent } from './crudOperationsInterfaces/students/stud-delete-one/stud-delete-one.component';
+import { StudEditOneComponent } from './crudOperationsInterfaces/students/stud-edit-one/stud-edit-one.component';
+import { StudAddNewComponent } from './crudOperationsInterfaces/students/stud-add-new/stud-add-new.component';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -33,7 +38,12 @@ const appRoutes: Routes = [
     StudentInterfaceComponent,
     TeacherInterfaceComponent,
     WelcomeInterfaceComponent,
-    AdminInterfaceComponent
+    AdminInterfaceComponent,
+    StudFindByIdComponent,
+    StudFindAllComponent,
+    StudDeleteOneComponent,
+    StudEditOneComponent,
+    StudAddNewComponent,
   ],
   imports: [
     BrowserModule,

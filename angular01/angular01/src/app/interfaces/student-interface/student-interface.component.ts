@@ -1,13 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Student} from "../models/Student";
-import {StudentService} from "../services/student.service";
+import {StudentService} from "../../services/student.service";
+import {DateUtil} from "../../services/DateUtil";
 
 @Component({
   selector: 'app-student-interface',
   templateUrl: './student-interface.component.html',
-  styleUrls: ['./student-interface.component.css'],
-
+  styleUrls: ['./student-interface.component.css']
 })
 export class StudentInterfaceComponent implements OnInit {
 
@@ -63,7 +62,8 @@ export class StudentInterfaceComponent implements OnInit {
 
     this.studentJSON.firstName = firstName.value;
     this.studentJSON.lastName = lastName.value;
-    this.studentJSON.date = birthDate.valueAsDate;
+    let dateUtil : DateUtil = new DateUtil();
+    this.studentJSON.date = dateUtil.formatDate(birthDate.valueAsDate);
 
 
 

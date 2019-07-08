@@ -1,0 +1,156 @@
+<header class="m-3">
+  <h1 class="text-center">Личный кабинет администратора</h1>
+</header>
+
+
+<div class="card p-0 ml-3 mr-3">
+  <div class="card-header bg-primary text-white font-weight-bold">
+    Система управления учебным центром
+  </div>
+  <div class="card-body">
+    <div class="card mb-4">
+      <div class="card-header">Студенты</div>
+      <div class="card-body">
+        <p>
+          Вы можете добавлять новых студентов, искать уже имеющихся в базе, а также редактировать их и удалять
+        </p>
+
+        <div class="button-bar mt-3 mb-3">
+          <button type="button" class="btn btn-success mr-3" (click)="showStAdd()">
+            Добавить студента
+          </button>
+          <button type="button" class="btn btn-warning mr-3" (click)="showStFind()">
+            Найти студента
+          </button>
+          <button type="button" class="btn btn-warning mr-3" (click)="showStFindAll()">
+            Показать всех студентов
+          </button>
+          <button type="button" class="btn btn-info mr-3" (click)="showStEdit()">
+            Редактировать студента
+          </button>
+          <button type="button" class="btn btn-danger mr-3" (click)="showStDelete()">
+            Удалить студента
+          </button>
+          <button type="button" class="btn btn-dark text-white" (click)="showStart()">
+            ^
+          </button>
+        </div>
+
+        <div [ngSwitch]="workspaceStudent">
+          <app-stud-add-new *ngSwitchCase="'stAdd'"></app-stud-add-new>
+          <app-stud-delete-one *ngSwitchCase="'stDelete'"></app-stud-delete-one>
+          <app-stud-edit-one *ngSwitchCase="'stEdit'"></app-stud-edit-one>
+          <app-stud-find-all *ngSwitchCase="'stFindAll'"></app-stud-find-all>
+          <app-stud-find-by-id *ngSwitchCase="'stFind'"></app-stud-find-by-id>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header">Преподаватели</div>
+      <div class="card-body">
+        <p>
+          Вы можете добавлять новых преподавателей, искать уже имеющихся в базе, а также редактировать их и удалять
+        </p>
+
+        <div class="button-bar">
+          <button type="button" class="btn btn-success mr-3">Добавить преподавателя</button>
+          <button type="button" class="btn btn-warning mr-3">Найти преподавателя</button>
+          <button type="button" class="btn btn-info mr-3">Редактировать преподавателя</button>
+          <button type="button" class="btn btn-danger">Удалить преподавателя</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Лекции</div>
+      <div class="card-body">
+        <p>
+          Вы можете добавлять новые лекции, искать уже имеющихся в базе, а также редактировать их и удалять
+        </p>
+
+        <div class="button-bar">
+          <button type="button" class="btn btn-success mr-3">Добавить лекцию</button>
+          <button type="button" class="btn btn-warning mr-3">Найти лекцию</button>
+          <button type="button" class="btn btn-info mr-3">Редактировать лекцию</button>
+          <button type="button" class="btn btn-danger">Удалить лекцию</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="m-3 card p-0">
+  <div class="card-header bg-success font-weight-bold text-white">
+    Информация о администраторе
+  </div>
+
+  <div class="card-body">
+    <dl class="dl-horizontal">
+      <dt>ID:</dt>
+      <dd>{{ adminJSON?.id }}</dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>Имя:</dt>
+      <dd>{{ adminJSON?.firstName }}</dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>Фамилия:</dt>
+      <dd>{{ adminJSON?.lastName }}</dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>Должность</dt>
+      <dd>{{ adminJSON?.position }}</dd>
+    </dl>
+  </div>
+
+  <div class="button-bar m-3">
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal"
+            (click)="showEditDialog($event)">Редактировать профиль
+    </button>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal" id="editModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true" [style.display]="showModal ? 'block' : 'none'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Редактирование профиля</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideEditDialog()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="lastNameText">Фамилия</label>
+            <input type="text" class="form-control" id="lastNameText" #lastNameText placeholder="Введите фамилию"
+                   value="{{adminJSON?.lastName}}">
+          </div>
+          <div class="form-group">
+            <label for="firstNameText">Имя</label>
+            <input type="text" class="form-control" id="firstNameText" #firstNameText placeholder="Введите имя"
+                   value="{{adminJSON?.firstName}}">
+          </div>
+          <div class="form-group">
+            <label for="position">Должность</label>
+            <input type="text" class="form-control" id="position" #position value="{{adminJSON?.position}}">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideEditDialog()">Закрыть</button>
+        <button type="button" class="btn btn-primary"
+                (click)="editOkButtonPressed(lastNameText, firstNameText, position)">Сохранить
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
