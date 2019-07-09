@@ -135,4 +135,12 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
         return getStudentById(objId);
 
     }
+
+    @Override
+    public Student updateStudent(Student student) {
+
+        // TODO: приходит student. Берем его id и заменяем все строки,
+        //  связанные с ним в его строках таблицы value
+        return null;
+    }
 }

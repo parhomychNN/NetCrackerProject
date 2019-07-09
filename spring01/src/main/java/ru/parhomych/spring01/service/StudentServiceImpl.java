@@ -27,4 +27,10 @@ public class StudentServiceImpl implements StudentService {
     public Student addNewStudent(Student student) {
         return studentDAO.addNewStudent(student);
     }
+
+    @Override
+    public Student editStudent(Student student) {
+        return studentDAO.updateStudent(student);
+    }
+
 }
