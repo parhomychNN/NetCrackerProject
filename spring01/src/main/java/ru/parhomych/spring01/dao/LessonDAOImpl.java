@@ -113,6 +113,8 @@ public class LessonDAOImpl extends JdbcDaoSupport implements LessonDAO {
 
     @Override
     public Lesson addNewLesson(Lesson lesson) {
+
+        System.out.println(lesson);
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Lesson");
 
@@ -186,5 +188,73 @@ public class LessonDAOImpl extends JdbcDaoSupport implements LessonDAO {
         }
 
         return resultLessons;
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public Lesson updateLesson(Lesson lesson) {
+
+        // Table VALUE
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Lesson");
+
+        for(Map<String, Object> eaattr : eaattrList){
+            // entity_attribute_id (какую цифру ставить в поле)
+            switch (eaattr.get("attr_name").toString()){
+                case "price":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            lesson.getId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            lesson.getPrice()
+                    );
+                    break;
+                case "lesson_date":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            lesson.getId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            lesson.getDate()
+                    );
+                    break;
+                case "subject":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            lesson.getId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            lesson.getSubject()
+                    );
+                    break;
+            }
+        }
+
+        // Table LESSON
+        learningCenterDataBaseUtil.updateLessonInfoInLessonTable(
+                lesson.getId(),
+                lesson.getStudent().getStudentId(),
+                lesson.getTeacher().getTeacherId()
+        );
+
+        return getLessonById(lesson.getId());
+
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public Boolean deleteLessonById(int lessonId) {
+
+        // Table VALUES
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Lesson");
+        for (Map<String, Object> eaAttr : eaattrList){
+            learningCenterDataBaseUtil.deleteRowInValue(
+                    lessonId,
+                    Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
+            );
+        }
+        // Table OBJECT
+        learningCenterDataBaseUtil.removeRowFromObject(lessonId);
+        // Table LESSON
+        learningCenterDataBaseUtil.removeRowFromLesson(lessonId);
+
+        return true;
+
     }
 }

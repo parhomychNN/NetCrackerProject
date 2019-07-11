@@ -8,7 +8,7 @@ import {forEach} from "@angular/router/src/utils/collection";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'angular01';
+  title = 'Учебный центр';
 
 
   constructor(private http: HttpClient) {

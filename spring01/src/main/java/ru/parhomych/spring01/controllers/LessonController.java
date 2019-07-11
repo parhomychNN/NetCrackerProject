@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.parhomych.spring01.model.InfoMessage;
 import ru.parhomych.spring01.model.Lesson;
 import ru.parhomych.spring01.model.Student;
@@ -17,6 +14,8 @@ import ru.parhomych.spring01.service.LessonService;
 import ru.parhomych.spring01.service.StudentService;
 import ru.parhomych.spring01.service.TeacherService;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,20 +70,34 @@ public class LessonController {
     }
 
     @PostMapping("/lessons/add")
-    public ResponseEntity<InfoMessage> addNewLesson(){
+    public ResponseEntity<Lesson> addNewLesson(@RequestBody Lesson lessonJSON){
 
-        Lesson lesson = new Lesson();
-        Student student = studentService.findStudentById(1);
-        Teacher teacher = teacherService.findTeacherById(5);
-        lesson.setSubject("Русский 2 класс");
-        lesson.setDate(new Date(11,11,1));
-        lesson.setPrice(1255.0);
-        lesson.setTeacher(teacher);
-        lesson.setStudent(student);
+        Lesson addedLesson = lessonService.addNewLesson(lessonJSON);
+        return new ResponseEntity<>(addedLesson, HttpStatus.OK);
 
-        Lesson addedLesson = lessonService.addNewLesson(lesson);
+    }
 
-        return new ResponseEntity<>(new InfoMessage("Lesson " + addedLesson.getId() + " added"), HttpStatus.OK);
+    @Produces(MediaType.APPLICATION_JSON)
+    @PutMapping("/lesson/")
+    public ResponseEntity<Lesson> editLesson(@RequestBody Lesson lessonJSON) {
+
+        return new ResponseEntity<Lesson> (
+                lessonService.editLesson(lessonJSON),
+                HttpStatus.OK
+        );
+
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @DeleteMapping("/lesson/{lessonId}")
+    public ResponseEntity<String> deleteLesson (@PathVariable String lessonId) {
+
+        int lessonIdInt = Integer.valueOf(lessonId);
+        Boolean statusOfDeleting = lessonService.removeLesson(lessonIdInt);
+        return new ResponseEntity<String>(
+                statusOfDeleting.toString(),
+                HttpStatus.OK
+        );
 
     }
 

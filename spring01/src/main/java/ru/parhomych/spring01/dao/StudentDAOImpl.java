@@ -19,8 +19,10 @@ import java.util.Map;
 public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
 
 
-    @Autowired DataSource dataSource;
-    @Autowired LearningCenterDataBaseUtil learningCenterDataBaseUtil;
+    @Autowired
+    DataSource dataSource;
+    @Autowired
+    LearningCenterDataBaseUtil learningCenterDataBaseUtil;
 
     final String sqlGetStudentById = "select * from value\n" +
             "where entity_attribute_id in\n" +
@@ -94,11 +96,10 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Student addNewStudent(Student student) {
-       List<Map<String, Object>> eaattrList = learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
 
+        List<Map<String, Object>> eaattrList =
+               learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
         int objId = learningCenterDataBaseUtil.insertNewObject("Student");
-        System.out.println("StudentDAOImpl.addNewTeacher objId ==========> " + objId);
-
         for(Map<String, Object> eaattr : eaattrList){
             switch (eaattr.get("attr_name").toString()){ // entity_attribute_id (какую цифру ставить в поле)
                 case "id":
@@ -131,16 +132,63 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
                     break;
             }
         }
-
         return getStudentById(objId);
 
     }
 
+    @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Student updateStudent(Student student) {
 
-        // TODO: приходит student. Берем его id и заменяем все строки,
-        //  связанные с ним в его строках таблицы value
-        return null;
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
+
+        for(Map<String, Object> eaattr : eaattrList){
+            // entity_attribute_id (какую цифру ставить в поле)
+            switch (eaattr.get("attr_name").toString()){
+                case "first_name":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            student.getStudentId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            student.getFirstName()
+                    );
+                    break;
+                case "last_name":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            student.getStudentId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            student.getLastName()
+                    );
+                    break;
+                case "birth_date":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            student.getStudentId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            student.getDate()
+                    );
+                    break;
+            }
+        }
+        return getStudentById(student.getStudentId());
+
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public Boolean deleteStudentById(int studentId) {
+
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
+        // removing rows from value table
+        for (Map<String, Object> eaAttr : eaattrList){
+            learningCenterDataBaseUtil.deleteRowInValue(
+                    studentId,
+                    Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
+            );
+        }
+        // removing row from object table
+        learningCenterDataBaseUtil.removeRowFromObject(studentId);
+        return true;
+
     }
 }

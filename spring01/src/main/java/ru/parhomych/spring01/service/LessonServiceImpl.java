@@ -34,4 +34,14 @@ public class LessonServiceImpl implements LessonService {
         return lessonDAO.addNewLesson(lesson);
     }
 
+    @Override
+    public Lesson editLesson(Lesson lesson) {
+        return lessonDAO.updateLesson(lesson);
+    }
+
+    @Override
+    public Boolean removeLesson(int lessonId) {
+        return lessonDAO.deleteLessonById(lessonId);
+    }
+
 }

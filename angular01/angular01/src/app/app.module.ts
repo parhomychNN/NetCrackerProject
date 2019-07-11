@@ -19,6 +19,18 @@ import { StudFindAllComponent } from './crudOperationsInterfaces/students/stud-f
 import { StudDeleteOneComponent } from './crudOperationsInterfaces/students/stud-delete-one/stud-delete-one.component';
 import { StudEditOneComponent } from './crudOperationsInterfaces/students/stud-edit-one/stud-edit-one.component';
 import { StudAddNewComponent } from './crudOperationsInterfaces/students/stud-add-new/stud-add-new.component';
+import { TeachAddNewComponent } from './crudOperationsInterfaces/teachers/teach-add-new/teach-add-new.component';
+import { TeachDeleteOneComponent } from './crudOperationsInterfaces/teachers/teach-delete-one/teach-delete-one.component';
+import { TeachEditOneComponent } from './crudOperationsInterfaces/teachers/teach-edit-one/teach-edit-one.component';
+import { TeachFindAllComponent } from './crudOperationsInterfaces/teachers/teach-find-all/teach-find-all.component';
+import { TeachFindByIdComponent } from './crudOperationsInterfaces/teachers/teach-find-by-id/teach-find-by-id.component';
+import {TeacherService} from "./services/teacher.service";
+import { LessonAddNewComponent } from './crudOperationsInterfaces/lessons/lesson-add-new/lesson-add-new.component';
+import { LessonDeleteOneComponent } from './crudOperationsInterfaces/lessons/lesson-delete-one/lesson-delete-one.component';
+import { LessonEditOneComponent } from './crudOperationsInterfaces/lessons/lesson-edit-one/lesson-edit-one.component';
+import { LessonFindAllComponent } from './crudOperationsInterfaces/lessons/lesson-find-all/lesson-find-all.component';
+import { LessonFindByIdComponent } from './crudOperationsInterfaces/lessons/lesson-find-by-id/lesson-find-by-id.component';
+import {LessonService} from "./services/lesson.service";
 
 registerLocaleData(localeRu, 'ru');
 
@@ -44,6 +56,16 @@ const appRoutes: Routes = [
     StudDeleteOneComponent,
     StudEditOneComponent,
     StudAddNewComponent,
+    TeachAddNewComponent,
+    TeachDeleteOneComponent,
+    TeachEditOneComponent,
+    TeachFindAllComponent,
+    TeachFindByIdComponent,
+    LessonAddNewComponent,
+    LessonDeleteOneComponent,
+    LessonEditOneComponent,
+    LessonFindAllComponent,
+    LessonFindByIdComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +76,9 @@ const appRoutes: Routes = [
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru' },
-    StudentService
+    StudentService,
+    TeacherService,
+    LessonService
   ],
   bootstrap: [AppComponent],
   exports: [RouterModule]

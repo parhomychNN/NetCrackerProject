@@ -11,5 +11,6 @@ public interface StudentService {
     List<Student> findAllStudents();
     Student addNewStudent(Student student);
     Student editStudent(Student student);
+    Boolean removeStudent(int studentId);
 
 }

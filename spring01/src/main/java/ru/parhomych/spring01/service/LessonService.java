@@ -11,4 +11,7 @@ public interface LessonService {
     List<Lesson> findAllLessons();
     List<Lesson> findAllLessonsByStudent(int studentId);
     Lesson addNewLesson(Lesson lesson);
+    Lesson editLesson(Lesson lesson);
+    Boolean removeLesson(int lessonId);
+
 }

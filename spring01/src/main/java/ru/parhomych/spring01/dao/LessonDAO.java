@@ -10,6 +10,8 @@ public interface LessonDAO {
     Lesson getLessonById(int lessonId);
     List<Lesson> getAllLessons();
     Lesson addNewLesson(Lesson lesson);
-
     List<Lesson> getAllLessonsByStudent(int studentId);
+    Lesson updateLesson(Lesson lesson);
+    Boolean deleteLessonById(int lessonId);
+
 }

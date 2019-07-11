@@ -31,7 +31,7 @@
           <button type="button" class="btn btn-danger mr-3" (click)="showStDelete()">
             Удалить студента
           </button>
-          <button type="button" class="btn btn-dark text-white" (click)="showStart()">
+          <button type="button" class="btn btn-dark text-white" (click)="showStStart()">
             ^
           </button>
         </div>
@@ -54,12 +54,35 @@
           Вы можете добавлять новых преподавателей, искать уже имеющихся в базе, а также редактировать их и удалять
         </p>
 
-        <div class="button-bar">
-          <button type="button" class="btn btn-success mr-3">Добавить преподавателя</button>
-          <button type="button" class="btn btn-warning mr-3">Найти преподавателя</button>
-          <button type="button" class="btn btn-info mr-3">Редактировать преподавателя</button>
-          <button type="button" class="btn btn-danger">Удалить преподавателя</button>
+        <div class="button-bar mt-3 mb-3">
+          <button type="button" class="btn btn-success mr-3" (click)="showTeachAdd()">
+            Добавить преподавателя
+          </button>
+          <button type="button" class="btn btn-warning mr-3" (click)="showTeachFind()">
+            Найти преподавателя
+          </button>
+          <button type="button" class="btn btn-warning mr-3" (click)="showTeachFindAll()">
+            Показать всех преподавателей
+          </button>
+          <button type="button" class="btn btn-info mr-3" (click)="showTeachEdit()">
+            Редактировать преподавателя
+          </button>
+          <button type="button" class="btn btn-danger mr-3" (click)="showTeachDelete()">
+            Удалить преподавателя
+          </button>
+          <button type="button" class="btn btn-dark text-white" (click)="showTeachStart()">
+            ^
+          </button>
         </div>
+
+        <div [ngSwitch]="workspaceTeacher">
+          <app-teach-add-new *ngSwitchCase="'teachAdd'"></app-teach-add-new>
+          <app-teach-delete-one *ngSwitchCase="'teachDelete'"></app-teach-delete-one>
+          <app-teach-edit-one *ngSwitchCase="'teachEdit'"></app-teach-edit-one>
+          <app-teach-find-all *ngSwitchCase="'teachFindAll'"></app-teach-find-all>
+          <app-teach-find-by-id *ngSwitchCase="'teachFind'"></app-teach-find-by-id>
+        </div>
+
       </div>
     </div>
 
@@ -70,11 +93,33 @@
           Вы можете добавлять новые лекции, искать уже имеющихся в базе, а также редактировать их и удалять
         </p>
 
-        <div class="button-bar">
-          <button type="button" class="btn btn-success mr-3">Добавить лекцию</button>
-          <button type="button" class="btn btn-warning mr-3">Найти лекцию</button>
-          <button type="button" class="btn btn-info mr-3">Редактировать лекцию</button>
-          <button type="button" class="btn btn-danger">Удалить лекцию</button>
+        <div class="button-bar mt-3 mb-3">
+          <button type="button" class="btn btn-success mr-3" (click)="showLessonAdd()">
+            Добавить лекцию
+          </button>
+          <button type="button" class="btn btn-warning mr-3" (click)="showLessonFind()">
+            Найти лекцию
+          </button>
+          <button type="button" class="btn btn-warning mr-3" (click)="showLessonFindAll()">
+            Показать все лекции
+          </button>
+          <button type="button" class="btn btn-info mr-3" (click)="showLessonEdit()">
+            Редактировать лекцию
+          </button>
+          <button type="button" class="btn btn-danger mr-3" (click)="showLessonDelete()">
+            Удалить лекцию
+          </button>
+          <button type="button" class="btn btn-dark text-white" (click)="showLessonStart()">
+            ^
+          </button>
+        </div>
+
+        <div [ngSwitch]="workspaceLesson">
+          <app-lesson-add-new *ngSwitchCase="'lessonAdd'"></app-lesson-add-new>
+          <app-lesson-delete-one *ngSwitchCase="'lessonDelete'"></app-lesson-delete-one>
+          <app-lesson-edit-one *ngSwitchCase="'lessonEdit'"></app-lesson-edit-one>
+          <app-lesson-find-all *ngSwitchCase="'lessonFindAll'"></app-lesson-find-all>
+          <app-lesson-find-by-id *ngSwitchCase="'lessonFind'"></app-lesson-find-by-id>
         </div>
 
       </div>

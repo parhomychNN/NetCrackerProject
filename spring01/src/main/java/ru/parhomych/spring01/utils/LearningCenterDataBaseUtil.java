@@ -139,4 +139,56 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
         System.out.println(objId);
         return objId;
     }
+
+    public void updateValueForObject(
+            int objId,
+            int entityAttributeId,
+            Object value) {
+
+        String sql = "";
+        if (value instanceof String){
+            System.out.println("Inserting in val_text");
+            sql = "UPDATE value SET val_text = ? where obj_id = ? and entity_attribute_id = ?";
+        } else if (value instanceof Integer){
+            System.out.println("Inserting in val_int");
+            sql = "UPDATE value SET val_int = ? where obj_id = ? and entity_attribute_id = ?";
+        } else if (value instanceof Double){
+            System.out.println("Inserting in val_num");
+            sql = "UPDATE value SET val_numeric = ? where obj_id = ? and entity_attribute_id = ?";
+        } else if (value instanceof Date){
+            System.out.println("Inserting in val_date");
+            sql = "UPDATE value SET val_date = ? where obj_id = ? and entity_attribute_id = ?";
+        }
+
+        getJdbcTemplate().update(sql, value, objId, entityAttributeId);
+
+    }
+
+    public void deleteRowInValue(int objId, int eaAttr) {
+
+        String sqlDeleteRowInValueTable = "DELETE from value where obj_id = ? and entity_attribute_id = ?";
+        getJdbcTemplate().update(sqlDeleteRowInValueTable, objId, eaAttr);
+
+    }
+
+    public void removeRowFromObject(int studentId) {
+
+        String sqlDeleteRowInObjectTable = "DELETE from object where obj_id = ?";
+        getJdbcTemplate().update(sqlDeleteRowInObjectTable, studentId);
+
+    }
+
+    public void updateLessonInfoInLessonTable(int lessonId, int studentId, int teacherId) {
+
+        String sql = "UPDATE lesson set student_id = ?, teacher_id = ? where lesson_id = ?";
+        getJdbcTemplate().update(sql, studentId, teacherId, lessonId);
+
+    }
+
+    public void removeRowFromLesson(int lessonId) {
+
+        String sqlDeleteRowInLessonTable = "DELETE from lesson where lesson_id = ?";
+        getJdbcTemplate().update(sqlDeleteRowInLessonTable, lessonId);
+
+    }
 }

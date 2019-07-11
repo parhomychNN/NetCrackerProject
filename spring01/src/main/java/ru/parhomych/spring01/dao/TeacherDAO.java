@@ -7,8 +7,9 @@ import java.util.List;
 public interface TeacherDAO {
 
     Teacher getTeacherById(int teacherId);
-
     List<Teacher> getAllTeachers();
-
     Teacher addNewTeacher(Teacher teacher);
+    Teacher updateTeacher(Teacher teacher);
+    Boolean deleteTeacherById(int teacherId);
+
 }

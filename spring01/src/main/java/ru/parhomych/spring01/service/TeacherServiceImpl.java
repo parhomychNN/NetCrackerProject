@@ -27,4 +27,15 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher addNewTeacher(Teacher teacher) {
         return teacherDAO.addNewTeacher(teacher);
     }
+
+    @Override
+    public Teacher editTeacher(Teacher teacher) {
+        return teacherDAO.updateTeacher(teacher);
+    }
+
+    @Override
+    public Boolean removeTeacher(int teacherId) {
+        return teacherDAO.deleteTeacherById(teacherId);
+    }
+
 }

@@ -15,7 +15,9 @@ export class AdminInterfaceComponent implements OnInit {
   /*workspace - show activity that admin does
   for student: stAdd, stEdit, stFind, stFindAll, stDelete;
   'start' - to show nothing*/
-  workspaceStudent: string = 'start';
+  private workspaceStudent: string = 'start';
+  private workspaceTeacher: string = 'start';
+  private workspaceLesson: string = 'start';
 
   constructor(private http: HttpClient) { }
 
@@ -52,6 +54,7 @@ export class AdminInterfaceComponent implements OnInit {
 
   }
 
+  // functions for students information
   showStAdd() {
     this.workspaceStudent = 'stAdd';
   }
@@ -72,7 +75,58 @@ export class AdminInterfaceComponent implements OnInit {
     this.workspaceStudent = 'stDelete';
   }
 
-  showStart() {
+  showStStart() {
     this.workspaceStudent = 'start';
   }
+
+  // functions for teachers information
+  showTeachAdd() {
+    this.workspaceTeacher = 'teachAdd';
+  }
+
+  showTeachFind() {
+    this.workspaceTeacher = 'teachFind';
+  }
+
+  showTeachFindAll() {
+    this.workspaceTeacher = 'teachFindAll';
+  }
+
+  showTeachEdit() {
+    this.workspaceTeacher = 'teachEdit';
+  }
+
+  showTeachDelete() {
+    this.workspaceTeacher = 'teachDelete';
+  }
+
+  showTeachStart() {
+    this.workspaceTeacher = 'start';
+  }
+
+  // functions for lessons information
+  showLessonAdd() {
+    this.workspaceLesson = 'lessonAdd';
+  }
+
+  showLessonFind() {
+    this.workspaceLesson = 'lessonFind';
+  }
+
+  showLessonFindAll() {
+    this.workspaceLesson = 'lessonFindAll';
+  }
+
+  showLessonEdit() {
+    this.workspaceLesson = 'lessonEdit';
+  }
+
+  showLessonDelete() {
+    this.workspaceLesson = 'lessonDelete';
+  }
+
+  showLessonStart() {
+    this.workspaceLesson = 'start';
+  }
+
 }

@@ -17,8 +17,10 @@ import java.util.Map;
 @Repository
 public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
 
-    @Autowired DataSource dataSource;
-    @Autowired LearningCenterDataBaseUtil learningCenterDataBaseUtil;
+    @Autowired
+    DataSource dataSource;
+    @Autowired
+    LearningCenterDataBaseUtil learningCenterDataBaseUtil;
 
     final String sqlGetTeacherById = "select * from value\n" +
             "where entity_attribute_id in\n" +
@@ -89,6 +91,7 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
         return resultTeachers;
     }
 
+    @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Teacher addNewTeacher(Teacher teacher) {
         List<Map<String, Object>> eaattrList = learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Teacher");
@@ -128,6 +131,62 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
             }
         }
         return getTeacherById(objId);
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public Teacher updateTeacher(Teacher teacher) {
+
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Teacher");
+
+        for(Map<String, Object> eaattr : eaattrList){
+            // entity_attribute_id (какую цифру ставить в поле)
+            switch (eaattr.get("attr_name").toString()){
+                case "first_name":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            teacher.getTeacherId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            teacher.getFirstName()
+                    );
+                    break;
+                case "last_name":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            teacher.getTeacherId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            teacher.getLastName()
+                    );
+                    break;
+                case "academic_degree":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            teacher.getTeacherId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            teacher.getAcademicDegree()
+                    );
+                    break;
+            }
+        }
+        return getTeacherById(teacher.getTeacherId());
+
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Override
+    public Boolean deleteTeacherById(int teacherId) {
+
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Teacher");
+        // removing rows from value table
+        for (Map<String, Object> eaAttr : eaattrList){
+            learningCenterDataBaseUtil.deleteRowInValue(
+                    teacherId,
+                    Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
+            );
+        }
+        // removing row from object table
+        learningCenterDataBaseUtil.removeRowFromObject(teacherId);
+        return true;
+
     }
 
 }
