@@ -11,5 +11,7 @@ public interface AdminService {
     Admin findAdminById(int adminId);
     List<Admin> findAllAdmins();
     Admin addNewAdmin(Admin admin);
+    Admin editAdmin(Admin admin);
+    Boolean removeAdmin(int adminId);
 
 }

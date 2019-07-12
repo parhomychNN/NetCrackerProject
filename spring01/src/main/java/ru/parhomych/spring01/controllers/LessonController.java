@@ -69,6 +69,19 @@ public class LessonController {
 
     }
 
+    @GetMapping("/lessons/teacher/{teachId}")
+    public ResponseEntity<List<Lesson>> getAllLessonsByTeacherId(@PathVariable String teachId){
+
+        //Student student = studentService.findStudentById(Integer.valueOf(studId));
+        ArrayList<Lesson> lessons = (ArrayList<Lesson>) lessonService.findAllLessonsByTeacher(Integer.valueOf(teachId));
+        if (lessons == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(lessons, HttpStatus.OK);
+        }
+
+    }
+
     @PostMapping("/lessons/add")
     public ResponseEntity<Lesson> addNewLesson(@RequestBody Lesson lessonJSON){
 

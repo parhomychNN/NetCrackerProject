@@ -31,19 +31,17 @@ public class LessonDAOImpl extends JdbcDaoSupport implements LessonDAO {
     LearningCenterDataBaseUtil learningCenterDataBaseUtil;
 
     final String sqlGetLessonByIdLessonTable = "SELECT * FROM lesson WHERE lesson_id = ?";
-
     final String sqlGetLessonByIdValueTable = "select * from value\n" +
             "where entity_attribute_id in\n" +
             "    (select entity_attribute.entity_attribute_id from entity_attribute where ent_type_id in\n" +
             "        (select entity_type.ent_type_id from entity_type where entity like 'Lesson')\n" +
             "    )\n" +
             "and obj_id = ?;\n";
-
     final String sqlGetAllLessonsIds = "select o.obj_id id\n" +
             "from object o, entity_type et\n" +
             "where o.ent_type_id = et.ent_type_id and et.entity like 'Lesson'";
-
     final String sqlGetAllLessonsIdsByStudentId = "select lesson_id from lesson where student_id = ?";
+    final String sqlGetAllLessonsIdsByTeacherId = "select lesson_id from lesson where teacher_id = ?";
 
 
     @PostConstruct
@@ -173,20 +171,33 @@ public class LessonDAOImpl extends JdbcDaoSupport implements LessonDAO {
     public List<Lesson> getAllLessonsByStudent(int studentId) {
         // calculate ID's of all the lessons
         List<Map<String, Object>> lessonsIds = getJdbcTemplate().queryForList(sqlGetAllLessonsIdsByStudentId, studentId);
-
         System.out.println("lessonsIds = [" + lessonsIds + "]");
-
         if (lessonsIds.size() == 0) {
             return null;
         }
-
         // find list of lessons by ID's
         List<Lesson> resultLessons = new ArrayList<Lesson>();
         for (Map<String, Object> lessonId : lessonsIds) {
             Lesson lesson = getLessonById((int) lessonId.get("lesson_id"));
             resultLessons.add(lesson);
         }
+        return resultLessons;
+    }
 
+    @Override
+    public List<Lesson> getAllLessonsByTeacher(int teacherId) {
+        // calculate ID's of all the lessons
+        List<Map<String, Object>> lessonsIds = getJdbcTemplate().queryForList(sqlGetAllLessonsIdsByTeacherId, teacherId);
+        System.out.println("lessonsIds = [" + lessonsIds + "]");
+        if (lessonsIds.size() == 0) {
+            return null;
+        }
+        // find list of lessons by ID's
+        List<Lesson> resultLessons = new ArrayList<Lesson>();
+        for (Map<String, Object> lessonId : lessonsIds) {
+            Lesson lesson = getLessonById((int) lessonId.get("lesson_id"));
+            resultLessons.add(lesson);
+        }
         return resultLessons;
     }
 

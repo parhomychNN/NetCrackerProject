@@ -30,6 +30,11 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
+    public List<Lesson> findAllLessonsByTeacher(int teacherId) {
+        return lessonDAO.getAllLessonsByTeacher(teacherId);
+    }
+
+    @Override
     public Lesson addNewLesson(Lesson lesson) {
         return lessonDAO.addNewLesson(lesson);
     }

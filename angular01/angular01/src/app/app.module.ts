@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import {StudentService} from "./services/student.service";
+
 import { StudFindByIdComponent } from './crudOperationsInterfaces/students/stud-find-by-id/stud-find-by-id.component';
 import { StudFindAllComponent } from './crudOperationsInterfaces/students/stud-find-all/stud-find-all.component';
 import { StudDeleteOneComponent } from './crudOperationsInterfaces/students/stud-delete-one/stud-delete-one.component';
@@ -31,17 +32,32 @@ import { LessonEditOneComponent } from './crudOperationsInterfaces/lessons/lesso
 import { LessonFindAllComponent } from './crudOperationsInterfaces/lessons/lesson-find-all/lesson-find-all.component';
 import { LessonFindByIdComponent } from './crudOperationsInterfaces/lessons/lesson-find-by-id/lesson-find-by-id.component';
 import {LessonService} from "./services/lesson.service";
+import {AuthService} from "./services/auth.service";
+import {AUTH_PROVIDERS} from "./services/auth.service";
+import {LoggedInGuard} from "./guards/logged-in.guard";
+import {AdminService} from "./services/admin.service";
+
 
 registerLocaleData(localeRu, 'ru');
 
-// TODo скинуть код (четверг) и git ignore на большие компоненты
 // paths
 const appRoutes: Routes = [
   {path: '', component: WelcomeInterfaceComponent},
-  // TODO решение об id прнимает кнопка Sign in, не нужно протаскивать в адресную строку
-  {path: 'student', component: StudentInterfaceComponent},
-  {path: 'teacher', component: TeacherInterfaceComponent},
-  {path: 'admin', component: AdminInterfaceComponent}
+  {
+    path: 'student',
+    component: StudentInterfaceComponent,
+    canActivate: [LoggedInGuard]
+  },
+  {
+    path: 'teacher',
+    component: TeacherInterfaceComponent,
+    canActivate: [LoggedInGuard]
+  },
+  {
+    path: 'admin',
+    component: AdminInterfaceComponent,
+    canActivate: [LoggedInGuard]
+  }
 ];
 
 @NgModule({
@@ -65,7 +81,7 @@ const appRoutes: Routes = [
     LessonDeleteOneComponent,
     LessonEditOneComponent,
     LessonFindAllComponent,
-    LessonFindByIdComponent,
+    LessonFindByIdComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +94,11 @@ const appRoutes: Routes = [
     { provide: LOCALE_ID, useValue: 'ru' },
     StudentService,
     TeacherService,
-    LessonService
+    LessonService,
+    AdminService,
+    AuthService,
+    AUTH_PROVIDERS,
+    LoggedInGuard
   ],
   bootstrap: [AppComponent],
   exports: [RouterModule]

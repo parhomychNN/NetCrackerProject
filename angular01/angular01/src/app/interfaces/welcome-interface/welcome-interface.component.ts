@@ -2,7 +2,7 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {NgForm, FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {Router} from "@angular/router";
-import {StudentService} from "../../services/student.service";
+import {AuthService} from "../../services/auth.service";
 
 @NgModule({
   imports: [
@@ -11,7 +11,6 @@ import {StudentService} from "../../services/student.service";
   ]
 })
 
-
 @Component({
   selector: 'app-welcome-interface',
   templateUrl: './welcome-interface.component.html',
@@ -19,48 +18,48 @@ import {StudentService} from "../../services/student.service";
 
 })
 export class WelcomeInterfaceComponent implements OnInit {
+  private message: string;
 
-  login: string;
-  password: string;
-
-  constructor(private router: Router, private studentService: StudentService) {
+  constructor(private router: Router, public authService: AuthService) {
+    this.message = '';
   }
 
   ngOnInit() {
   }
 
-  signInButtonPressed(form: NgForm) {
-    this.login = form.value.login;
-    this.password = form.value.password;
+  login(username: string, password: string): boolean {
+    this.message = '';
+    if (!this.authService.login(username, password)) {
+      this.message = 'Неверные данные для входа. Проверьте логин или пароль';
+      setTimeout(function () {
+        this.message = '';
+      }.bind(this), 2500);
+    }
+    return false;
+  }
 
-    switch (this.login) {
-      case "student":
-        if (this.password == "student") {
-          // this.studentService.getStudentByIDd(1);
-          this.router.navigate([('/student')])
-            .then(success => console.log('navigation success?' , success))
-            .catch(console.error);
-        }
+  logout(): boolean {
+    this.authService.logout();
+    return false;
+  }
+
+  enterTheProfile() {
+    switch (this.authService.getUser()) {
+      case 'admin':
+        this.router.navigate([('/admin')])
+          .then(success => console.log('navigation success?', success))
+          .catch(console.error);
         break;
-      case "teacher":
-        if (this.password == "teacher") {
-          this.router.navigate([('/teacher')])
-            .then(success => console.log('navigation success?' , success))
-            .catch(console.error);
-        }
+      case 'student':
+        this.router.navigate([('/student')])
+          .then(success => console.log('navigation success?', success))
+          .catch(console.error);
         break;
-      case "admin":
-        if (this.password == "admin") {
-          this.router.navigate([('/admin')])
-            .then(success => console.log('navigation success?' , success))
-            .catch(console.error);
-        }
-        break;
-      default:
-        console.log("Invalid login");
+      case 'teacher':
+        this.router.navigate([('/teacher')])
+          .then(success => console.log('navigation success?', success))
+          .catch(console.error);
         break;
     }
-
-
   }
 }

@@ -1,3 +1,108 @@
-<p>
-  teacher-interface works!
-</p>
+<header class="m-3">
+  <h1 class="text-center">Личный кабинет преподавателя</h1>
+</header>
+<div class="card-deck ml-3 mr-3">
+  <div class="col-md-9 card p-0">
+    <div class="card-header bg-primary text-white font-weight-bold">Ваши лекции</div>
+
+    <div class="card-body">
+      <table class="table col-12 table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th>id</th>
+          <th>Название</th>
+          <th>Студент</th>
+          <th>Дата занятия</th>
+          <th>Стоимость</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let lesson of lessonsJSON">
+          <td>{{lesson?.id}}</td>
+          <td>{{lesson?.subject}}</td>
+          <td>{{lesson?.student.lastName}} {{lesson?.student.firstName}}</td>
+          <td>{{lesson?.date | date:'fullDate':'ru'}}</td>
+          <td>{{lesson?.price | currency: 'RUB'}}</td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+  <div class="col-md-3 card p-0">
+    <div class="card-header bg-success font-weight-bold text-white">
+      Информация о преподавателе
+    </div>
+
+    <div class="card-body">
+      <dl class="dl-horizontal">
+        <dt>ID:</dt>
+        <dd>{{teacherJSON?.teacherId}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Имя:</dt>
+        <dd>{{teacherJSON?.firstName}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Фамилия:</dt>
+        <dd>{{teacherJSON?.lastName}}</dd>
+      </dl>
+      <dl class="dl-horizontal">
+        <dt>Учёная степень</dt>
+        <dd>{{teacherJSON?.academicDegree}}</dd>
+      </dl>
+    </div>
+    <div class="button-bar m-3">
+      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal"
+              (click)="showEditDialog($event)">Редактировать профиль
+      </button>
+      <button class="btn btn-danger ml-3" (click)="authService.logout()">Выйти (log out)</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal" id="editModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true" [style.display]="showModal ? 'block' : 'none'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Редактирование профиля</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideEditDialog()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="lastNameText">Фамилия</label>
+            <input type="text" class="form-control" id="lastNameText" #lastNameText placeholder="Введите фамилию"
+                   value="{{teacherJSON?.lastName}}">
+          </div>
+          <div class="form-group">
+            <label for="firstNameText">Имя</label>
+            <input type="text" class="form-control" id="firstNameText" #firstNameText placeholder="Введите имя"
+                   value="{{teacherJSON?.firstName}}">
+          </div>
+          <div class="form-group">
+            <label for="academicDegreeText">Имя</label>
+            <input type="text" class="form-control" id="academicDegreeText" #academicDegreeText
+                   placeholder="Введите учёную степень" value="{{teacherJSON?.academicDegree}}">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideEditDialog()">Закрыть</button>
+        <button type="button" class="btn btn-primary"
+                (click)="editOkButtonPressed(
+                  lastNameText.value,
+                  firstNameText.value,
+                  academicDegreeText.value)">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

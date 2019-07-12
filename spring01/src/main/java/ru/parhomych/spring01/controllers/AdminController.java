@@ -20,8 +20,6 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
-    @Autowired
-    LearningCenterDataBaseUtil learningCenterDataBaseUtil;
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/admin/{adminId}")
@@ -39,7 +37,7 @@ public class AdminController {
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/admins")
-    public ResponseEntity<List<Admin>> getAllStudents(){
+    public ResponseEntity<List<Admin>> getAllAdmins(){
 
         List<Admin> admins = adminService.findAllAdmins();
         if (admins == null){
@@ -51,12 +49,36 @@ public class AdminController {
     }
 
     @PostMapping("/admins/add")
-    public ResponseEntity<InfoMessage> addNewStudent(@RequestBody Admin adminJSON){
+    public ResponseEntity<InfoMessage> addNewAdmin(@RequestBody Admin adminJSON){
 
         Admin addedAdmin = adminService.addNewAdmin(adminJSON);
-
         return new ResponseEntity<> (
                 new InfoMessage("Admin " + addedAdmin.getId() + " added"),
+                HttpStatus.OK
+        );
+
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @PutMapping("/admin/")
+    public ResponseEntity<Admin> editStudent(@RequestBody Admin adminJSON) {
+
+        System.out.println("AdminController.editStudent" + adminJSON);
+        return new ResponseEntity<Admin> (
+                adminService.editAdmin(adminJSON),
+                HttpStatus.OK
+        );
+
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @DeleteMapping("/admin/{adminId}")
+    public ResponseEntity<String> deleteStudent (@PathVariable String adminId) {
+
+        int adminIdInt = Integer.valueOf(adminId);
+        Boolean statusOfDeleting = adminService.removeAdmin(adminIdInt);
+        return new ResponseEntity<String>(
+                statusOfDeleting.toString(),
                 HttpStatus.OK
         );
 

@@ -19,7 +19,6 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
 
     @Autowired
     DataSource dataSource;
-
     @Autowired
     LearningCenterDataBaseUtil learningCenterDataBaseUtil;
 
@@ -133,5 +132,57 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
         }
 
         return getAdminById(objId);
+    }
+
+    @Override
+    public Admin updateAdmin(Admin admin) {
+
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
+
+        for(Map<String, Object> eaattr : eaattrList){
+            // entity_attribute_id (какую цифру ставить в поле)
+            switch (eaattr.get("attr_name").toString()){
+                case "first_name":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            admin.getId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            admin.getFirstName()
+                    );
+                    break;
+                case "last_name":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            admin.getId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            admin.getLastName()
+                    );
+                    break;
+                case "position":
+                    learningCenterDataBaseUtil.updateValueForObject(
+                            admin.getId(),
+                            Integer.valueOf(eaattr.get("entity_attribute_id").toString()),
+                            admin.getPosition()
+                    );
+                    break;
+            }
+        }
+        return getAdminById(admin.getId());
+
+    }
+
+    @Override
+    public Boolean deleteAdminById(int adminId) {
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
+        // removing rows from value table
+        for (Map<String, Object> eaAttr : eaattrList){
+            learningCenterDataBaseUtil.deleteRowInValue(
+                    adminId,
+                    Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
+            );
+        }
+        // removing row from object table
+        learningCenterDataBaseUtil.removeRowFromObject(adminId);
+        return true;
     }
 }

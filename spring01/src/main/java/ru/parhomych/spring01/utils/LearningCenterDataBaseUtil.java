@@ -38,6 +38,7 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
                 "        )\n" +
                 ";";
         List<Map<String, Object>> entityAttrIdRelAttrName = getJdbcTemplate().queryForList(sql, entity);
+        System.out.println("LearningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName");
         for (Map<String, Object> eaAttr : entityAttrIdRelAttrName){
             System.out.println(eaAttr);
         }

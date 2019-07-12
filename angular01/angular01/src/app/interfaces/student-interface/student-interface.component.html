@@ -56,15 +56,13 @@
       </dl>
     </div>
     <div class="button-bar m-3">
-      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="showEditDialog($event)">Редактировать профиль</button>
+      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal"
+              (click)="showEditDialog($event)">Редактировать профиль
+      </button>
+      <button class="btn btn-danger ml-3" (click)="authService.logout()">Выйти (log out)</button>
     </div>
-
-
   </div>
-
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal" id="editModal" tabindex="-1" role="dialog"
@@ -81,11 +79,13 @@
         <form>
           <div class="form-group">
             <label for="lastNameText">Фамилия</label>
-            <input type="text" class="form-control" id="lastNameText" #lastNameText placeholder="Введите фамилию" value="{{studentJSON?.lastName}}">
+            <input type="text" class="form-control" id="lastNameText" #lastNameText placeholder="Введите фамилию"
+                   value="{{studentJSON?.lastName}}">
           </div>
           <div class="form-group">
             <label for="firstNameText">Имя</label>
-            <input type="text" class="form-control" id="firstNameText" #firstNameText placeholder="Введите имя" value="{{studentJSON?.firstName}}">
+            <input type="text" class="form-control" id="firstNameText" #firstNameText placeholder="Введите имя"
+                   value="{{studentJSON?.firstName}}">
           </div>
           <div class="form-group">
             <label for="birthDate">Дата рождения</label>
@@ -95,7 +95,13 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideEditDialog()">Закрыть</button>
-        <button type="button" class="btn btn-primary" (click)="editOkButtonPressed(lastNameText, firstNameText, birthDate)">Сохранить</button>
+        <button type="button" class="btn btn-primary"
+                (click)="editOkButtonPressed(
+                  lastNameText.value,
+                  firstNameText.value,
+                  birthDate.valueAsDate
+                )">Сохранить
+        </button>
       </div>
     </div>
   </div>

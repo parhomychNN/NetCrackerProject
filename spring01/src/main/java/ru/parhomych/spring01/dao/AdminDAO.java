@@ -10,5 +10,7 @@ public interface AdminDAO {
     Admin getAdminById(int adminId);
     List<Admin> getAllAdmins();
     Admin addNewAdmin(Admin admin);
+    Admin updateAdmin(Admin admin);
+    Boolean deleteAdminById(int adminId);
 
 }

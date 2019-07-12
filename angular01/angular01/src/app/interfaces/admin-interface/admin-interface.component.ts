@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../../services/auth.service";
+import {AdminService} from "../../services/admin.service";
+import {provideForRootGuard} from "@angular/router/src/router_module";
 
 @Component({
   selector: 'app-admin-interface',
@@ -19,17 +22,18 @@ export class AdminInterfaceComponent implements OnInit {
   private workspaceTeacher: string = 'start';
   private workspaceLesson: string = 'start';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              private adminService: AdminService
+  ) { }
 
   ngOnInit() {
-
     this.http.get<Admin>(this.urlForRequestAdmin).subscribe(
       admin => {
         console.log(admin);
         this.adminJSON = admin;
       }
     )
-
   }
 
   showEditDialog(event) {
@@ -43,15 +47,14 @@ export class AdminInterfaceComponent implements OnInit {
   editOkButtonPressed(lastName: HTMLInputElement,
                       firstName: HTMLInputElement,
                       position: HTMLInputElement) {
-
     this.adminJSON.firstName = firstName.value.toString();
     this.adminJSON.lastName = lastName.value.toString();
     this.adminJSON.position = position.value.toString();
-
     console.log(this.adminJSON);
-
+    this.adminService.updateAdmin(this.adminJSON).subscribe(value => {
+      this.adminJSON = value;
+    });
     this.hideEditDialog();
-
   }
 
   // functions for students information
@@ -128,5 +131,4 @@ export class AdminInterfaceComponent implements OnInit {
   showLessonStart() {
     this.workspaceLesson = 'start';
   }
-
 }
