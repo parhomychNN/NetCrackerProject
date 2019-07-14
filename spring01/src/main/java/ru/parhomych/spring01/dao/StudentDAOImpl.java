@@ -179,8 +179,10 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
 
         // delete all attached lessons
         List<Lesson> lessonsAttachedToThisStudent = lessonService.findAllLessonsByStudent(studentId).getBody();
-        for (Lesson lesson : lessonsAttachedToThisStudent) {
-            lessonService.removeLesson(lesson.getId());
+        if (lessonsAttachedToThisStudent != null){
+            for (Lesson lesson : lessonsAttachedToThisStudent) {
+                lessonService.removeLesson(lesson.getId());
+            }
         }
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");

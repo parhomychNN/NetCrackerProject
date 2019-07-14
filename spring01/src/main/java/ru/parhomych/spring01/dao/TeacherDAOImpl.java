@@ -175,8 +175,10 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
 
         // delete all attached lessons
         List<Lesson> lessonsAttachedToThisTeacher = lessonService.findAllLessonsByTeacher(teacherId).getBody();
-        for (Lesson lesson : lessonsAttachedToThisTeacher) {
-            lessonService.removeLesson(lesson.getId());
+        if (lessonsAttachedToThisTeacher != null) {
+            for (Lesson lesson : lessonsAttachedToThisTeacher) {
+                lessonService.removeLesson(lesson.getId());
+            }
         }
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Teacher");

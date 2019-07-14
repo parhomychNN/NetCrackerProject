@@ -67,8 +67,10 @@ public class StudentServiceImpl implements StudentService {
     public Boolean removeStudent(int studentId) {
 
         if (studentDAO.getStudentById(studentId) == null) {
+            System.out.println("Нет студента для удаления");
             return false;
         } else {
+            System.out.println("Есть студент для удаления");
             return studentDAO.deleteStudentById(studentId);
         }
 
