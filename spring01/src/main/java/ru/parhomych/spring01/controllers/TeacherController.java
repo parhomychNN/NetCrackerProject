@@ -21,41 +21,25 @@ public class TeacherController {
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/teacher/{teacherId}")
-    public ResponseEntity<Teacher> getTeacherById(@PathVariable String teacherId){
+    public ResponseEntity<Teacher> getTeacherById(@PathVariable String teacherId) {
 
-        int teacherIdInt = Integer.valueOf(teacherId);
-        Teacher teacher = teacherService.findTeacherById(teacherIdInt);
-        if (teacher == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(teacher, HttpStatus.OK);
-        }
+        return teacherService.findTeacherById(Integer.valueOf(teacherId));
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/teachers")
-    public ResponseEntity<List<Teacher>> getAllTeachers(){
+    public ResponseEntity<List<Teacher>> getAllTeachers() {
 
-        List<Teacher> teachers = teacherService.findAllTeachers();
-        if (teachers == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(teachers, HttpStatus.OK);
-        }
+        return teacherService.findAllTeachers();
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @PostMapping("/teachers/add")
-    public ResponseEntity<Teacher> addNewTeacher(@RequestBody Teacher teacherJSON){
+    public ResponseEntity<Teacher> addNewTeacher(@RequestBody Teacher teacherJSON) {
 
-        //Teacher addedTeacher = teacherService.addNewTeacher(teacherJSON);
-
-        return new ResponseEntity<Teacher> (
-                teacherService.addNewTeacher(teacherJSON),
-                HttpStatus.OK
-        );
+        return teacherService.addNewTeacher(teacherJSON);
 
     }
 
@@ -63,19 +47,15 @@ public class TeacherController {
     @PutMapping("/teacher/")
     public ResponseEntity<Teacher> editTeacher(@RequestBody Teacher teacherJSON) {
 
-        return new ResponseEntity<Teacher> (
-                teacherService.editTeacher(teacherJSON),
-                HttpStatus.OK
-        );
+        return teacherService.editTeacher(teacherJSON);
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @DeleteMapping("/teacher/{teacherId}")
-    public ResponseEntity<String> deleteTeacher (@PathVariable String teacherId) {
+    public ResponseEntity<String> deleteTeacher(@PathVariable String teacherId) {
 
-        int teacherIdInt = Integer.valueOf(teacherId);
-        Boolean statusOfDeleting = teacherService.removeTeacher(teacherIdInt);
+        Boolean statusOfDeleting = teacherService.removeTeacher(Integer.valueOf(teacherId));
         return new ResponseEntity<String>(
                 statusOfDeleting.toString(),
                 HttpStatus.OK

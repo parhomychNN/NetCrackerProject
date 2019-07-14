@@ -22,28 +22,18 @@ public class StudentController {
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/student/{studentId}")
-    public ResponseEntity<Student> getStudentById(@PathVariable String studentId){
+    public ResponseEntity<Student> getStudentById(@PathVariable String studentId) {
 
-        int studentIdInt = Integer.valueOf(studentId);
-        Student student = studentService.findStudentById(studentIdInt);
-        if (student == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(student, HttpStatus.OK);
-        }
+        return studentService.findStudentById(Integer.valueOf(studentId));
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/students")
-    public ResponseEntity<List<Student>> getAllStudents(){
+    public ResponseEntity<List<Student>> getAllStudents() {
 
-        List<Student> students = studentService.findAllStudents();
-        if (students == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(students, HttpStatus.OK);
-        }
+        return studentService.findAllStudents();
+
 
     }
 
@@ -51,10 +41,7 @@ public class StudentController {
     @PostMapping("/students/add")
     public ResponseEntity<Student> addNewStudent(@RequestBody Student studentJSON) {
 
-        return new ResponseEntity<Student> (
-                studentService.addNewStudent(studentJSON),
-                HttpStatus.OK
-        );
+        return studentService.addNewStudent(studentJSON);
 
     }
 
@@ -62,16 +49,13 @@ public class StudentController {
     @PutMapping("/student/")
     public ResponseEntity<Student> editStudent(@RequestBody Student studentJSON) {
 
-        return new ResponseEntity<Student> (
-                studentService.editStudent(studentJSON),
-                HttpStatus.OK
-        );
+        return studentService.editStudent(studentJSON);
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @DeleteMapping("/student/{studentId}")
-    public ResponseEntity<String> deleteStudent (@PathVariable String studentId) {
+    public ResponseEntity<String> deleteStudent(@PathVariable String studentId) {
 
         int studentIdInt = Integer.valueOf(studentId);
         Boolean statusOfDeleting = studentService.removeStudent(studentIdInt);

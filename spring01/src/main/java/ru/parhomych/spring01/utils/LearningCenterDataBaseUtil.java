@@ -17,17 +17,17 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
     DataSource dataSource;
 
     @PostConstruct
-    private void initialize(){
+    private void initialize() {
         setDataSource(dataSource);
     }
 
     /**
-    * @return mapped relation entity_attribute_id <--> attr_name
-    * There are different sets of entity_attribute_id, they depend on subject of entity
-    * In my project they are: "Student", "Teacher", "Lesson", "Admin"
      * @param entity - subject of entity ("Student" || "Teacher" || "Lesson" || "Admin")
-    * */
-    public List<Map<String, Object>> getEntityAttrIdRelAttrNameByEntityName(String entity){
+     * @return mapped relation entity_attribute_id <--> attr_name
+     * There are different sets of entity_attribute_id, they depend on subject of entity
+     * In my project they are: "Student", "Teacher", "Lesson", "Admin"
+     */
+    public List<Map<String, Object>> getEntityAttrIdRelAttrNameByEntityName(String entity) {
         String sql = "select ea.entity_attribute_id, a.attr_name\n" +
                 "from entity_attribute ea left join attribute a on ea.attr_id = a.attr_id\n" +
                 "where ea.ent_type_id in\n" +
@@ -39,7 +39,7 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
                 ";";
         List<Map<String, Object>> entityAttrIdRelAttrName = getJdbcTemplate().queryForList(sql, entity);
         System.out.println("LearningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName");
-        for (Map<String, Object> eaAttr : entityAttrIdRelAttrName){
+        for (Map<String, Object> eaAttr : entityAttrIdRelAttrName) {
             System.out.println(eaAttr);
         }
         return entityAttrIdRelAttrName;
@@ -47,9 +47,10 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
 
     /**
      * ID for adding new object
+     *
      * @return first available object ID
      */
-    public int getTheNextObjectId(){
+    public int getTheNextObjectId() {
         int nextObjectId;
 
         String sql = "select max(obj_id) from object";
@@ -58,19 +59,19 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
         return nextObjectId;
     }
 
-    public void insertValueForObject(int objId, int entityAttributeId, Object value){
+    public void insertValueForObject(int objId, int entityAttributeId, Object value) {
 
         String sql = "";
-        if (value instanceof String){
+        if (value instanceof String) {
             System.out.println("Inserting in val_text");
             sql = "INSERT INTO value (obj_id, entity_attribute_id, val_text) values (?, ?, ?)";
-        } else if (value instanceof Integer){
+        } else if (value instanceof Integer) {
             System.out.println("Inserting in val_int");
             sql = "INSERT INTO value (obj_id, entity_attribute_id, val_int) values (?, ?, ?)";
-        } else if (value instanceof Double){
+        } else if (value instanceof Double) {
             System.out.println("Inserting in val_num");
             sql = "INSERT INTO value (obj_id, entity_attribute_id, val_numeric) values (?, ?, ?)";
-        } else if (value instanceof Date){
+        } else if (value instanceof Date) {
             System.out.println("Inserting in val_date");
             sql = "INSERT INTO value (obj_id, entity_attribute_id, val_date) values (?, ?, ?)";
         }
@@ -82,6 +83,7 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
 
     /**
      * Adds new object in object's table
+     *
      * @param entityType can be "Admin", "Student", "Teacher", "Lesson"
      */
     public int insertNewObject(String entityType) {
@@ -93,7 +95,7 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
 
         int objId = getTheNextObjectId();
         String sql = "";
-        switch (entityType){
+        switch (entityType) {
             case "Student":
                 System.out.println("Adds student");
 
@@ -147,16 +149,16 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
             Object value) {
 
         String sql = "";
-        if (value instanceof String){
+        if (value instanceof String) {
             System.out.println("Inserting in val_text");
             sql = "UPDATE value SET val_text = ? where obj_id = ? and entity_attribute_id = ?";
-        } else if (value instanceof Integer){
+        } else if (value instanceof Integer) {
             System.out.println("Inserting in val_int");
             sql = "UPDATE value SET val_int = ? where obj_id = ? and entity_attribute_id = ?";
-        } else if (value instanceof Double){
+        } else if (value instanceof Double) {
             System.out.println("Inserting in val_num");
             sql = "UPDATE value SET val_numeric = ? where obj_id = ? and entity_attribute_id = ?";
-        } else if (value instanceof Date){
+        } else if (value instanceof Date) {
             System.out.println("Inserting in val_date");
             sql = "UPDATE value SET val_date = ? where obj_id = ? and entity_attribute_id = ?";
         }

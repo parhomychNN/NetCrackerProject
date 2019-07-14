@@ -1,6 +1,8 @@
 package ru.parhomych.spring01.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.parhomych.spring01.dao.AdminDAO;
 import ru.parhomych.spring01.model.Admin;
@@ -14,27 +16,61 @@ public class AdminServiceImpl implements AdminService {
     AdminDAO adminDAO;
 
     @Override
-    public Admin findAdminById(int adminId) {
-        return adminDAO.getAdminById(adminId);
+    public ResponseEntity<Admin> findAdminById(int adminId) {
+
+        Admin admin = adminDAO.getAdminById(adminId);
+        if (admin == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(admin, HttpStatus.OK);
+        }
+
     }
 
     @Override
-    public List<Admin> findAllAdmins() {
-        return adminDAO.getAllAdmins();
+    public ResponseEntity<List<Admin>> findAllAdmins() {
+
+        List<Admin> admins = adminDAO.getAllAdmins();
+        if (admins == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(admins, HttpStatus.OK);
+        }
+
     }
 
     @Override
-    public Admin addNewAdmin(Admin admin) {
-        return adminDAO.addNewAdmin(admin);
+    public ResponseEntity<Admin> addNewAdmin(Admin admin) {
+
+        Admin adminToReturn = adminDAO.addNewAdmin(admin);
+        if (adminToReturn == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(adminToReturn, HttpStatus.OK);
+        }
+
     }
 
     @Override
-    public Admin editAdmin(Admin admin) {
-        return adminDAO.updateAdmin(admin);
+    public ResponseEntity<Admin> editAdmin(Admin admin) {
+
+        Admin adminToReturn = adminDAO.updateAdmin(admin);
+        if (adminToReturn == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(adminToReturn, HttpStatus.OK);
+        }
+
     }
 
     @Override
     public Boolean removeAdmin(int adminId) {
-        return adminDAO.deleteAdminById(adminId);
+
+        if (adminDAO.getAdminById(adminId) == null) {
+            return false;
+        } else {
+            return adminDAO.deleteAdminById(adminId);
+        }
+
     }
 }

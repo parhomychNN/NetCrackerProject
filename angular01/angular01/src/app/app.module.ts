@@ -36,6 +36,7 @@ import {AuthService} from "./services/auth.service";
 import {AUTH_PROVIDERS} from "./services/auth.service";
 import {LoggedInGuard} from "./guards/logged-in.guard";
 import {AdminService} from "./services/admin.service";
+import { StudSignUpForTheLessonComponent } from './interfaces/student-interface/stud-sign-up-for-the-lesson/stud-sign-up-for-the-lesson.component';
 
 
 registerLocaleData(localeRu, 'ru');
@@ -81,7 +82,8 @@ const appRoutes: Routes = [
     LessonDeleteOneComponent,
     LessonEditOneComponent,
     LessonFindAllComponent,
-    LessonFindByIdComponent
+    LessonFindByIdComponent,
+    StudSignUpForTheLessonComponent
   ],
   imports: [
     BrowserModule,

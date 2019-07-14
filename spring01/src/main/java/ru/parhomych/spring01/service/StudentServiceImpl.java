@@ -1,6 +1,8 @@
 package ru.parhomych.spring01.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.parhomych.spring01.dao.StudentDAO;
 import ru.parhomych.spring01.model.Student;
@@ -14,28 +16,62 @@ public class StudentServiceImpl implements StudentService {
     StudentDAO studentDAO;
 
     @Override
-    public Student findStudentById(int studentId) {
-        return studentDAO.getStudentById(studentId);
+    public ResponseEntity<Student> findStudentById(int studentId) {
+
+        Student student = studentDAO.getStudentById(studentId);
+        if (student == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        }
+
     }
 
     @Override
-    public List<Student> findAllStudents() {
-        return studentDAO.getAllStudents();
+    public ResponseEntity<List<Student>> findAllStudents() {
+
+        List<Student> students = studentDAO.getAllStudents();
+        if (students == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(students, HttpStatus.OK);
+        }
+
     }
 
     @Override
-    public Student addNewStudent(Student student) {
-        return studentDAO.addNewStudent(student);
+    public ResponseEntity<Student> addNewStudent(Student student) {
+
+        Student studentToReturn = studentDAO.addNewStudent(student);
+        if (studentToReturn == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(studentToReturn, HttpStatus.OK);
+        }
+
     }
 
     @Override
-    public Student editStudent(Student student) {
-        return studentDAO.updateStudent(student);
+    public ResponseEntity<Student> editStudent(Student student) {
+
+        Student studentToReturn = studentDAO.updateStudent(student);
+        if (studentToReturn == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(studentToReturn, HttpStatus.OK);
+        }
+
     }
 
     @Override
     public Boolean removeStudent(int studentId) {
-        return studentDAO.deleteStudentById(studentId);
+
+        if (studentDAO.getStudentById(studentId) == null) {
+            return false;
+        } else {
+            return studentDAO.deleteStudentById(studentId);
+        }
+
     }
 
 }

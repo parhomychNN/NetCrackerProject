@@ -32,61 +32,37 @@ public class LessonController {
     TeacherService teacherService;
 
     @GetMapping("/lesson/{lessonId}")
-    public ResponseEntity<Lesson> getLessonById(@PathVariable String lessonId){
+    public ResponseEntity<Lesson> getLessonById(@PathVariable String lessonId) {
 
-        int lessonIdInt = Integer.valueOf(lessonId);
-        Lesson lesson = lessonService.findLessonById(lessonIdInt);
-        if (lesson == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(lesson, HttpStatus.OK);
-        }
+        return lessonService.findLessonById(Integer.valueOf(lessonId));
 
     }
 
     @GetMapping("/lessons")
-    public ResponseEntity<List<Lesson>> getAllLessons(){
+    public ResponseEntity<List<Lesson>> getAllLessons() {
 
-        ArrayList<Lesson> lessons = (ArrayList<Lesson>) lessonService.findAllLessons();
-        if (lessons == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(lessons, HttpStatus.OK);
-        }
+        return lessonService.findAllLessons();
 
     }
 
     @GetMapping("/lessons/student/{studId}")
-    public ResponseEntity<List<Lesson>> getAllLessonsByStudentId(@PathVariable String studId){
+    public ResponseEntity<List<Lesson>> getAllLessonsByStudentId(@PathVariable String studId) {
 
-        //Student student = studentService.findStudentById(Integer.valueOf(studId));
-        ArrayList<Lesson> lessons = (ArrayList<Lesson>) lessonService.findAllLessonsByStudent(Integer.valueOf(studId));
-        if (lessons == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(lessons, HttpStatus.OK);
-        }
+        return lessonService.findAllLessonsByStudent(Integer.valueOf(studId));
 
     }
 
     @GetMapping("/lessons/teacher/{teachId}")
-    public ResponseEntity<List<Lesson>> getAllLessonsByTeacherId(@PathVariable String teachId){
+    public ResponseEntity<List<Lesson>> getAllLessonsByTeacherId(@PathVariable String teachId) {
 
-        //Student student = studentService.findStudentById(Integer.valueOf(studId));
-        ArrayList<Lesson> lessons = (ArrayList<Lesson>) lessonService.findAllLessonsByTeacher(Integer.valueOf(teachId));
-        if (lessons == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(lessons, HttpStatus.OK);
-        }
+        return lessonService.findAllLessonsByTeacher(Integer.valueOf(teachId));
 
     }
 
     @PostMapping("/lessons/add")
-    public ResponseEntity<Lesson> addNewLesson(@RequestBody Lesson lessonJSON){
+    public ResponseEntity<Lesson> addNewLesson(@RequestBody Lesson lessonJSON) {
 
-        Lesson addedLesson = lessonService.addNewLesson(lessonJSON);
-        return new ResponseEntity<>(addedLesson, HttpStatus.OK);
+        return lessonService.addNewLesson(lessonJSON);
 
     }
 
@@ -94,19 +70,15 @@ public class LessonController {
     @PutMapping("/lesson/")
     public ResponseEntity<Lesson> editLesson(@RequestBody Lesson lessonJSON) {
 
-        return new ResponseEntity<Lesson> (
-                lessonService.editLesson(lessonJSON),
-                HttpStatus.OK
-        );
+        return lessonService.editLesson(lessonJSON);
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @DeleteMapping("/lesson/{lessonId}")
-    public ResponseEntity<String> deleteLesson (@PathVariable String lessonId) {
+    public ResponseEntity<String> deleteLesson(@PathVariable String lessonId) {
 
-        int lessonIdInt = Integer.valueOf(lessonId);
-        Boolean statusOfDeleting = lessonService.removeLesson(lessonIdInt);
+        Boolean statusOfDeleting = lessonService.removeLesson(Integer.valueOf(lessonId));
         return new ResponseEntity<String>(
                 statusOfDeleting.toString(),
                 HttpStatus.OK

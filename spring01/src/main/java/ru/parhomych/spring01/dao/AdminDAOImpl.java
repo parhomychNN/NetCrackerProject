@@ -22,39 +22,38 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
     @Autowired
     LearningCenterDataBaseUtil learningCenterDataBaseUtil;
 
-
     final String sqlGetAdminById = "select * from value\n" +
             "where entity_attribute_id in\n" +
             "    (select entity_attribute.entity_attribute_id from entity_attribute where ent_type_id in\n" +
             "        (select entity_type.ent_type_id from entity_type where entity like 'Admin')\n" +
             "    )\n" +
             "and obj_id = ?;\n";
-
     final String sqlGetAllAdminsIds = "select o.obj_id id\n" +
             "from object o, entity_type et\n" +
             "where o.ent_type_id = et.ent_type_id and et.entity like 'Admin'";
 
     @PostConstruct
     private void initialize() {
+
         setDataSource(dataSource);
+
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Admin getAdminById(int adminId) {
-        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sqlGetAdminById, adminId);
 
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sqlGetAdminById, adminId);
         Admin resultAdmin;
-        if (rows.size() != 0){
+        if (rows.size() != 0) {
             resultAdmin = new Admin();
         } else {
             resultAdmin = null;
         }
-
         for (Map<String, Object> rowAdminAttribute : rows) {
-            switch ((int)rowAdminAttribute.get("entity_attribute_id")){
+            switch ((int) rowAdminAttribute.get("entity_attribute_id")) {
                 case 13: // id
-                    resultAdmin.setId((int)rowAdminAttribute.get("val_int"));
+                    resultAdmin.setId((int) rowAdminAttribute.get("val_int"));
                     break;
                 case 14: // firstname
                     resultAdmin.setFirstName((String) rowAdminAttribute.get("val_text"));
@@ -68,38 +67,37 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
         }
         System.out.println("AdminDAOImpl.findStudentById " + resultAdmin);
         return resultAdmin;
+
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public List<Admin> getAllAdmins() {
+
         // calculate ID's of all the admins
-
         List<Map<String, Object>> adminsIds = getJdbcTemplate().queryForList(sqlGetAllAdminsIds);
-
-        if (adminsIds.size() == 0){
+        if (adminsIds.size() == 0) {
             return null;
         }
         // find list of admins by ID's
         List<Admin> resultAdmins = new ArrayList<>();
-        for(Map<String, Object> adminId : adminsIds){
-            Admin admin = getAdminById((int)adminId.get("id"));
+        for (Map<String, Object> adminId : adminsIds) {
+            Admin admin = getAdminById((int) adminId.get("id"));
             resultAdmins.add(admin);
         }
-
         return resultAdmins;
+
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Admin addNewAdmin(Admin admin) {
-        List<Map<String, Object>> eaattrList = learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
 
+        List<Map<String, Object>> eaattrList =
+                learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
         int objId = learningCenterDataBaseUtil.insertNewObject("Admin");
-        System.out.println("AdminDAOImpl.addNewAdmin objId ==========> " + objId);
-
-        for(Map<String, Object> eaattr : eaattrList){
-            switch (eaattr.get("attr_name").toString()){ // entity_attribute_id (какую цифру ставить в поле)
+        for (Map<String, Object> eaattr : eaattrList) {
+            switch (eaattr.get("attr_name").toString()) { // entity_attribute_id (какую цифру ставить в поле)
                 case "id":
                     learningCenterDataBaseUtil.insertValueForObject(
                             objId,
@@ -130,7 +128,6 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
                     break;
             }
         }
-
         return getAdminById(objId);
     }
 
@@ -139,10 +136,9 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
 
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
-
-        for(Map<String, Object> eaattr : eaattrList){
+        for (Map<String, Object> eaattr : eaattrList) {
             // entity_attribute_id (какую цифру ставить в поле)
-            switch (eaattr.get("attr_name").toString()){
+            switch (eaattr.get("attr_name").toString()) {
                 case "first_name":
                     learningCenterDataBaseUtil.updateValueForObject(
                             admin.getId(),
@@ -172,10 +168,11 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
 
     @Override
     public Boolean deleteAdminById(int adminId) {
+
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
         // removing rows from value table
-        for (Map<String, Object> eaAttr : eaattrList){
+        for (Map<String, Object> eaAttr : eaattrList) {
             learningCenterDataBaseUtil.deleteRowInValue(
                     adminId,
                     Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
@@ -184,5 +181,6 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
         // removing row from object table
         learningCenterDataBaseUtil.removeRowFromObject(adminId);
         return true;
+
     }
 }

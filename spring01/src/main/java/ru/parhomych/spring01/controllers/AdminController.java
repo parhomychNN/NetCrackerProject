@@ -23,66 +23,45 @@ public class AdminController {
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/admin/{adminId}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable String adminId){
+    public ResponseEntity<Admin> getAdminById(@PathVariable String adminId) {
 
-        int adminIdInt = Integer.valueOf(adminId);
-        Admin admin = adminService.findAdminById(adminIdInt);
-        if (admin == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(admin, HttpStatus.OK);
-        }
+        return adminService.findAdminById(Integer.valueOf(adminId));
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/admins")
-    public ResponseEntity<List<Admin>> getAllAdmins(){
+    public ResponseEntity<List<Admin>> getAllAdmins() {
 
-        List<Admin> admins = adminService.findAllAdmins();
-        if (admins == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(admins, HttpStatus.OK);
-        }
+        return adminService.findAllAdmins();
 
     }
 
     @PostMapping("/admins/add")
-    public ResponseEntity<InfoMessage> addNewAdmin(@RequestBody Admin adminJSON){
+    public ResponseEntity<Admin> addNewAdmin(@RequestBody Admin adminJSON) {
 
-        Admin addedAdmin = adminService.addNewAdmin(adminJSON);
-        return new ResponseEntity<> (
-                new InfoMessage("Admin " + addedAdmin.getId() + " added"),
-                HttpStatus.OK
-        );
+        return adminService.addNewAdmin(adminJSON);
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @PutMapping("/admin/")
-    public ResponseEntity<Admin> editStudent(@RequestBody Admin adminJSON) {
+    public ResponseEntity<Admin> editAdmin(@RequestBody Admin adminJSON) {
 
-        System.out.println("AdminController.editStudent" + adminJSON);
-        return new ResponseEntity<Admin> (
-                adminService.editAdmin(adminJSON),
-                HttpStatus.OK
-        );
+        return adminService.editAdmin(adminJSON);
 
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @DeleteMapping("/admin/{adminId}")
-    public ResponseEntity<String> deleteStudent (@PathVariable String adminId) {
+    public ResponseEntity<String> deleteAdmin(@PathVariable String adminId) {
 
-        int adminIdInt = Integer.valueOf(adminId);
-        Boolean statusOfDeleting = adminService.removeAdmin(adminIdInt);
+        Boolean statusOfDeleting = adminService.removeAdmin(Integer.valueOf(adminId));
         return new ResponseEntity<String>(
                 statusOfDeleting.toString(),
                 HttpStatus.OK
         );
 
     }
-
 
 }

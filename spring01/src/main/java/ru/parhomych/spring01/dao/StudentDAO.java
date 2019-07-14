@@ -7,9 +7,13 @@ import java.util.List;
 public interface StudentDAO {
 
     Student getStudentById(int studentId);
+
     List<Student> getAllStudents();
+
     Student addNewStudent(Student student);
+
     Student updateStudent(Student student);
+
     Boolean deleteStudentById(int studentId);
 
 }

@@ -1,7 +1,7 @@
 <header class="m-3">
   <h1 class="text-center">Личный кабинет студента</h1>
 </header>
-<div class="card-deck ml-3 mr-3"><!--row m-5-->
+<div class="card-deck ml-3 mr-3 mb-5"><!--row m-5-->
   <div class="col-md-9 card p-0">
     <div class="card-header bg-primary text-white font-weight-bold">Ваши лекции</div>
 
@@ -29,38 +29,53 @@
 
       </table>
     </div>
+    <div class="card-footer">
+      <div *ngIf="isSignUpForTheLessonFormActive then active else notActive"></div>
+      <ng-template #notActive>
+        <button class="btn btn-success" (click)="showSignUpForTheLessonForm()">Записаться на занятие</button>
+      </ng-template>
+      <ng-template #active>
+        <app-stud-sign-up-for-the-lesson [student]="studentJSON"
+                                         (updateLessonsInStudentsInterface)="updateLessonsList()">
+        </app-stud-sign-up-for-the-lesson>
+      </ng-template>
+
+    </div>
 
   </div>
 
-  <div class="col-md-3 card p-0">
-    <div class="card-header bg-success font-weight-bold text-white">
-      Информация о студенте
+  <div class="col-md-3 p-0">
+    <div class="card">
+      <div class="card-header bg-success font-weight-bold text-white">
+        Информация о студенте
+      </div>
+
+      <div class="card-body">
+        <dl class="dl-horizontal">
+          <dt>ID:</dt>
+          <dd>{{studentJSON?.studentId}}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Имя:</dt>
+          <dd>{{studentJSON?.firstName}}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Фамилия:</dt>
+          <dd>{{studentJSON?.lastName}}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>Дата рождения:</dt>
+          <dd>{{studentJSON?.date | date}}</dd>
+        </dl>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal"
+                (click)="showEditDialog($event)">Редактировать
+        </button>
+        <button class="btn btn-danger ml-3" (click)="authService.logout()">Выйти</button>
+      </div>
     </div>
 
-    <div class="card-body">
-      <dl class="dl-horizontal">
-        <dt>ID:</dt>
-        <dd>{{studentJSON?.studentId}}</dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Имя:</dt>
-        <dd>{{studentJSON?.firstName}}</dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Фамилия:</dt>
-        <dd>{{studentJSON?.lastName}}</dd>
-      </dl>
-      <dl class="dl-horizontal">
-        <dt>Дата рождения:</dt>
-        <dd>{{studentJSON?.date | date}}</dd>
-      </dl>
-    </div>
-    <div class="button-bar m-3">
-      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal"
-              (click)="showEditDialog($event)">Редактировать профиль
-      </button>
-      <button class="btn btn-danger ml-3" (click)="authService.logout()">Выйти (log out)</button>
-    </div>
   </div>
 </div>
 
