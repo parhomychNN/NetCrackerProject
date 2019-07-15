@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Repository
 public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
-
     @Autowired
     DataSource dataSource;
     @Autowired
@@ -34,15 +33,12 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
 
     @PostConstruct
     private void initialize() {
-
         setDataSource(dataSource);
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Admin getAdminById(int adminId) {
-
         List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sqlGetAdminById, adminId);
         Admin resultAdmin;
         if (rows.size() != 0) {
@@ -67,13 +63,11 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
         }
         System.out.println("AdminDAOImpl.findStudentById " + resultAdmin);
         return resultAdmin;
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public List<Admin> getAllAdmins() {
-
         // calculate ID's of all the admins
         List<Map<String, Object>> adminsIds = getJdbcTemplate().queryForList(sqlGetAllAdminsIds);
         if (adminsIds.size() == 0) {
@@ -86,13 +80,11 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
             resultAdmins.add(admin);
         }
         return resultAdmins;
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Admin addNewAdmin(Admin admin) {
-
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
         int objId = learningCenterDataBaseUtil.insertNewObject("Admin");
@@ -133,7 +125,6 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
 
     @Override
     public Admin updateAdmin(Admin admin) {
-
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
         for (Map<String, Object> eaattr : eaattrList) {
@@ -163,17 +154,15 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
             }
         }
         return getAdminById(admin.getId());
-
     }
 
     @Override
     public Boolean deleteAdminById(int adminId) {
-
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Admin");
         // removing rows from value table
         for (Map<String, Object> eaAttr : eaattrList) {
-            learningCenterDataBaseUtil.deleteRowInValue(
+            learningCenterDataBaseUtil.removeRowFromValue(
                     adminId,
                     Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
             );
@@ -181,6 +170,5 @@ public class AdminDAOImpl extends JdbcDaoSupport implements AdminDAO {
         // removing row from object table
         learningCenterDataBaseUtil.removeRowFromObject(adminId);
         return true;
-
     }
 }

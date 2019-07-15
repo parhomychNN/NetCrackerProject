@@ -15,52 +15,40 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class TeacherController {
-
     @Autowired
     TeacherService teacherService;
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/teacher/{teacherId}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable String teacherId) {
-
         return teacherService.findTeacherById(Integer.valueOf(teacherId));
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @GetMapping("/teachers")
     public ResponseEntity<List<Teacher>> getAllTeachers() {
-
         return teacherService.findAllTeachers();
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @PostMapping("/teachers/add")
     public ResponseEntity<Teacher> addNewTeacher(@RequestBody Teacher teacherJSON) {
-
         return teacherService.addNewTeacher(teacherJSON);
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @PutMapping("/teacher/")
     public ResponseEntity<Teacher> editTeacher(@RequestBody Teacher teacherJSON) {
-
         return teacherService.editTeacher(teacherJSON);
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @DeleteMapping("/teacher/{teacherId}")
     public ResponseEntity<String> deleteTeacher(@PathVariable String teacherId) {
-
         Boolean statusOfDeleting = teacherService.removeTeacher(Integer.valueOf(teacherId));
         return new ResponseEntity<String>(
                 statusOfDeleting.toString(),
                 HttpStatus.OK
         );
-
     }
-
 }

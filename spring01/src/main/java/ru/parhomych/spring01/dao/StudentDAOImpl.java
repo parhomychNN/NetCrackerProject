@@ -19,8 +19,6 @@ import java.util.Map;
 
 @Repository
 public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
-
-
     @Autowired
     DataSource dataSource;
     @Autowired
@@ -40,15 +38,12 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
 
     @PostConstruct
     private void initialize() {
-
         setDataSource(dataSource);
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Student getStudentById(int studentId) {
-
         List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sqlGetStudentById, studentId);
         Student resultStudent;
         if (rows.size() != 0) {
@@ -73,13 +68,11 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
         }
         System.out.println("StudentDAOImpl.findStudentById " + resultStudent);
         return resultStudent;
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public List<Student> getAllStudents() {
-
         // calculate ID's of all the students
         List<Map<String, Object>> studentsIds = getJdbcTemplate().queryForList(sqlGetAllStudentsIds);
         if (studentsIds.size() == 0) {
@@ -91,13 +84,11 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
             resultStudents.add(getStudentById((int) studentId.get("id")));
         }
         return resultStudents;
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Student addNewStudent(Student student) {
-
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
         int objId = learningCenterDataBaseUtil.insertNewObject("Student");
@@ -134,13 +125,11 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
             }
         }
         return getStudentById(objId);
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Student updateStudent(Student student) {
-
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
         for (Map<String, Object> eaattr : eaattrList) {
@@ -170,13 +159,11 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
             }
         }
         return getStudentById(student.getStudentId());
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Boolean deleteStudentById(int studentId) {
-
         // delete all attached lessons
         List<Lesson> lessonsAttachedToThisStudent = lessonService.findAllLessonsByStudent(studentId).getBody();
         if (lessonsAttachedToThisStudent != null){
@@ -188,7 +175,7 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Student");
         // removing rows from value table
         for (Map<String, Object> eaAttr : eaattrList) {
-            learningCenterDataBaseUtil.deleteRowInValue(
+            learningCenterDataBaseUtil.removeRowFromValue(
                     studentId,
                     Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
             );
@@ -196,6 +183,5 @@ public class StudentDAOImpl extends JdbcDaoSupport implements StudentDAO {
         // removing row from object table
         learningCenterDataBaseUtil.removeRowFromObject(studentId);
         return true;
-
     }
 }

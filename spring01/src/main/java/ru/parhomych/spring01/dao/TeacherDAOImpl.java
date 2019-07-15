@@ -18,7 +18,6 @@ import java.util.Map;
 
 @Repository
 public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
-
     @Autowired
     DataSource dataSource;
     @Autowired
@@ -44,7 +43,6 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Teacher getTeacherById(int teacherId) {
-
         List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sqlGetTeacherById, teacherId);
         Teacher resultTeacher;
         if (rows.size() != 0) {
@@ -69,13 +67,11 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
         }
         System.out.println("TeacherDAOImpl.findTeacherById " + resultTeacher);
         return resultTeacher;
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public List<Teacher> getAllTeachers() {
-
         // calculate ID's of all the teachers
         List<Map<String, Object>> teachersIds = getJdbcTemplate().queryForList(sqlGetAllTeachersIds);
         if (teachersIds.size() == 0) {
@@ -87,13 +83,11 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
             resultTeachers.add(getTeacherById((int) teacherId.get("id")));
         }
         return resultTeachers;
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Teacher addNewTeacher(Teacher teacher) {
-
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Teacher");
         int objId = learningCenterDataBaseUtil.insertNewObject("Teacher");
@@ -130,13 +124,11 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
             }
         }
         return getTeacherById(objId);
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Teacher updateTeacher(Teacher teacher) {
-
         List<Map<String, Object>> eaattrList =
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Teacher");
         for (Map<String, Object> eaattr : eaattrList) {
@@ -166,13 +158,11 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
             }
         }
         return getTeacherById(teacher.getTeacherId());
-
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Boolean deleteTeacherById(int teacherId) {
-
         // delete all attached lessons
         List<Lesson> lessonsAttachedToThisTeacher = lessonService.findAllLessonsByTeacher(teacherId).getBody();
         if (lessonsAttachedToThisTeacher != null) {
@@ -184,7 +174,7 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
                 learningCenterDataBaseUtil.getEntityAttrIdRelAttrNameByEntityName("Teacher");
         // removing rows from value table
         for (Map<String, Object> eaAttr : eaattrList) {
-            learningCenterDataBaseUtil.deleteRowInValue(
+            learningCenterDataBaseUtil.removeRowFromValue(
                     teacherId,
                     Integer.valueOf(eaAttr.get("entity_attribute_id").toString())
             );
@@ -192,7 +182,5 @@ public class TeacherDAOImpl extends JdbcDaoSupport implements TeacherDAO {
         // removing row from object table
         learningCenterDataBaseUtil.removeRowFromObject(teacherId);
         return true;
-
     }
-
 }

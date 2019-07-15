@@ -10,12 +10,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Lesson {
-
     private int id;
     private Teacher teacher;
     private Student student;
     private String subject;
     private Date date;
     private double price;
-
 }

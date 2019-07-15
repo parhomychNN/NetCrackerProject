@@ -12,7 +12,6 @@ import java.util.Map;
 
 @Repository
 public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
-
     @Autowired
     DataSource dataSource;
 
@@ -52,15 +51,12 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
      */
     public int getTheNextObjectId() {
         int nextObjectId;
-
         String sql = "select max(obj_id) from object";
         nextObjectId = getJdbcTemplate().queryForObject(sql, Integer.class) + 1;
-        System.out.println("LearningCenterDataBaseUtil.getTheNextObjectId =========> " + nextObjectId);
         return nextObjectId;
     }
 
     public void insertValueForObject(int objId, int entityAttributeId, Object value) {
-
         String sql = "";
         if (value instanceof String) {
             System.out.println("Inserting in val_text");
@@ -75,10 +71,7 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
             System.out.println("Inserting in val_date");
             sql = "INSERT INTO value (obj_id, entity_attribute_id, val_date) values (?, ?, ?)";
         }
-
         getJdbcTemplate().update(sql, objId, entityAttributeId, value);
-
-
     }
 
     /**
@@ -87,56 +80,43 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
      * @param entityType can be "Admin", "Student", "Teacher", "Lesson"
      */
     public int insertNewObject(String entityType) {
-
         Map<String, Object> entIdMap;
         int entId;
         String sqlToAddObject;
-
-
         int objId = getTheNextObjectId();
-        String sql = "";
+        String sql;
         switch (entityType) {
             case "Student":
                 System.out.println("Adds student");
-
                 sql = "select ent_type_id from entity_type where entity like 'Student'";
                 entIdMap = getJdbcTemplate().queryForMap(sql);
                 entId = Integer.valueOf(entIdMap.get("ent_type_id").toString());
-
                 sqlToAddObject = "insert into object (obj_id, ent_type_id) values (?, ?)";
                 getJdbcTemplate().update(sqlToAddObject, objId, entId);
                 break;
             case "Admin":
                 System.out.println("Adds admin");
-
                 sql = "select ent_type_id from entity_type where entity like 'Admin'";
                 entIdMap = getJdbcTemplate().queryForMap(sql);
                 entId = Integer.valueOf(entIdMap.get("ent_type_id").toString());
-
                 sqlToAddObject = "insert into object (obj_id, ent_type_id) values (?, ?)";
                 getJdbcTemplate().update(sqlToAddObject, objId, entId);
                 break;
-
             case "Teacher":
                 System.out.println("Adds teacher");
-
                 sql = "select ent_type_id from entity_type where entity like 'Teacher'";
                 entIdMap = getJdbcTemplate().queryForMap(sql);
                 entId = Integer.valueOf(entIdMap.get("ent_type_id").toString());
-
                 sqlToAddObject = "insert into object (obj_id, ent_type_id) values (?, ?)";
                 getJdbcTemplate().update(sqlToAddObject, objId, entId);
                 break;
             case "Lesson":
                 System.out.println("Adds lesson");
-
                 sql = "select ent_type_id from entity_type where entity like 'Lesson'";
                 entIdMap = getJdbcTemplate().queryForMap(sql);
                 entId = Integer.valueOf(entIdMap.get("ent_type_id").toString());
-
                 sqlToAddObject = "insert into object (obj_id, ent_type_id) values (?, ?)";
                 getJdbcTemplate().update(sqlToAddObject, objId, entId);
-
                 break;
         }
         System.out.println(objId);
@@ -147,7 +127,6 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
             int objId,
             int entityAttributeId,
             Object value) {
-
         String sql = "";
         if (value instanceof String) {
             System.out.println("Inserting in val_text");
@@ -162,36 +141,26 @@ public class LearningCenterDataBaseUtil extends JdbcDaoSupport {
             System.out.println("Inserting in val_date");
             sql = "UPDATE value SET val_date = ? where obj_id = ? and entity_attribute_id = ?";
         }
-
         getJdbcTemplate().update(sql, value, objId, entityAttributeId);
-
     }
 
-    public void deleteRowInValue(int objId, int eaAttr) {
-
+    public void removeRowFromValue(int objId, int eaAttr) {
         String sqlDeleteRowInValueTable = "DELETE from value where obj_id = ? and entity_attribute_id = ?";
         getJdbcTemplate().update(sqlDeleteRowInValueTable, objId, eaAttr);
-
     }
 
     public void removeRowFromObject(int studentId) {
-
         String sqlDeleteRowInObjectTable = "DELETE from object where obj_id = ?";
         getJdbcTemplate().update(sqlDeleteRowInObjectTable, studentId);
-
     }
 
     public void updateLessonInfoInLessonTable(int lessonId, int studentId, int teacherId) {
-
         String sql = "UPDATE lesson set student_id = ?, teacher_id = ? where lesson_id = ?";
         getJdbcTemplate().update(sql, studentId, teacherId, lessonId);
-
     }
 
     public void removeRowFromLesson(int lessonId) {
-
         String sqlDeleteRowInLessonTable = "DELETE from lesson where lesson_id = ?";
         getJdbcTemplate().update(sqlDeleteRowInLessonTable, lessonId);
-
     }
 }
